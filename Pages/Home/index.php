@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ROCMN Stemwijzer</title>
   <style>
+    :root {
+      --Main-color: #007ac9;
+      --Secundair-color: #2E3192;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
@@ -15,7 +20,7 @@
     }
 
     .header {
-      background-color: #007f91;
+      background-color: var(--Main-color);
       color: white;
       padding: 20px;
     }
@@ -28,7 +33,7 @@
     .button {
       padding: 10px 20px;
       font-size: 18px;
-      background-color: #007f91;
+      background-color: var(--Main-color);
       color: white;
       border: none;
       border-radius: 5px;
@@ -37,14 +42,14 @@
     }
 
     .button:hover {
-      background-color: #005f6b;
+      background-color: var(--Secundair-color);
     }
   </style>
 </head>
 
 <body>
   <div class="header">
-    <img src="link-naar-het-ROC-logo" alt="ROC Logo" class="logo">
+    <img src="https://www.rocmn.nl/themes/custom/rocmn/logo.svg?v=1693382188" alt="ROC Logo" class="logo">
     <h1>Welkom bij de ROCMN Stemwijzer</h1>
   </div>
 
@@ -56,7 +61,7 @@
     <h3>Hoe werkt het?</h3>
     <p>Beantwoord een aantal vragen over actuele onderwerpen. Op basis van jouw antwoorden krijg je een overzicht van de politieke partijen die het beste aansluiten bij jouw standpunten.</p>
 
-    <a href="link-naar-stemwijzer" class="button">Start de Stemwijzer</a>
+    <a href="../Stemwijzer/" class="button">Start de Stemwijzer</a>
   </div>
 </body>
 
