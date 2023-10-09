@@ -1,0 +1,34 @@
+.ContentWrapper {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.QuestionWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Buttons {
+	background-image: url(../../Assets/Images/arrows-blue-bg.png);
+	padding: 2rem 0;
+	width: 100%;
+	display: grid;
+	flex-wrap: wrap;
+}
+
+.Buttons > button {
+	margin: 1rem 20%;
+}
+
+@media (min-width: 768px) {
+	.Buttons {
+		max-width: 1500px;
+		grid-template-columns: repeat(5, 1fr);
+	}
+	.Buttons > button {
+		margin: 1rem 1.5rem;
+	}
+}
