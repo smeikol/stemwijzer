@@ -15,18 +15,19 @@
 </head>
 
 <body>
-    <div class="BackButton">Back</div>
-    <div class="ContentWrapper">
-        <div class="QuestionWrapper">
-            <p id="QuestionHeader">[Question]</p>
-            <div class="Buttons">
-                <button>Helemaal niet mee eens</button>
-                <button>Beetje niet mee eens</button>
-                <button>Neutraal</button>
-                <button>Beetje mee eens</button>
-                <button>Mee eens</button>
-            </div>
+    <div class="QuestionWrapper">
+        <p id="QuestionHeader">[Question]</p>
+        <div class="Buttons">
+            <button>Helemaal niet mee eens</button>
+            <button>Beetje niet mee eens</button>
+            <button>Neutraal</button>
+            <button>Beetje mee eens</button>
+            <button>Mee eens</button>
         </div>
+    </div>
+    <div class="NavButtons">
+        <button class="BackButton">Back</button>
+        <button class="NextButton DissabledButtons">Next</button>
     </div>
 </body>
 

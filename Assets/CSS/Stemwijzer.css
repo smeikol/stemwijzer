@@ -1,14 +1,9 @@
-.ContentWrapper {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
 .QuestionWrapper {
+	height: calc(100% - 3rem - 39px);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-evenly;
 }
 
 .Buttons {
@@ -21,6 +16,29 @@
 
 .Buttons > button {
 	margin: 1rem 20%;
+}
+
+.NavButtons {
+	display: flex;
+	justify-content: space-around;
+}
+
+.NavButtons > button {
+	margin: 1.5rem;
+}
+
+.DissabledButtons {
+	pointer-events: none;
+	background-color: grey;
+}
+
+#QuestionHeader {
+	background-color: var(--Secundair-color);
+	width: 50%;
+	text-align: center;
+	color: white;
+	border-radius: 1rem;
+	padding: 1rem 0;
 }
 
 @media (min-width: 768px) {
