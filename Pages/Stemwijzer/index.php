@@ -17,12 +17,22 @@
 <body>
     <div class="QuestionWrapper">
         <p id="QuestionHeader">[Question]</p>
-        <div class="Buttons">
-            <button>Helemaal niet mee eens</button>
-            <button>Beetje niet mee eens</button>
-            <button>Neutraal</button>
-            <button>Beetje mee eens</button>
-            <button>Mee eens</button>
+        <div class="Options">
+            <label>
+                <input name="Choice" type="radio">Niet mee eens
+            </label>
+            <label>
+                <input name="Choice" type="radio">Beetje niet mee eens
+            </label>
+            <label>
+                <input name="Choice" type="radio">Neutraal
+            </label>
+            <label>
+                <input name="Choice" type="radio">Beetje mee eens
+            </label>
+            <label>
+                <input name="Choice" type="radio">Mee eens
+            </label>
         </div>
     </div>
     <div class="NavButtons">

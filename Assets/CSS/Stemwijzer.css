@@ -1,3 +1,7 @@
+input[type="radio"] {
+	display: none;
+}
+
 .QuestionWrapper {
 	height: calc(100% - 3rem - 39px);
 	display: flex;
@@ -6,7 +10,7 @@
 	justify-content: space-evenly;
 }
 
-.Buttons {
+.Options {
 	background-image: url(../../Assets/Images/arrows-blue-bg.png);
 	padding: 2rem 0;
 	width: 100%;
@@ -14,8 +18,23 @@
 	flex-wrap: wrap;
 }
 
-.Buttons > button {
+.Options > label {
 	margin: 1rem 20%;
+	color: white;
+	background-color: var(--Main-color);
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
+	transition: 200ms;
+	font-size: 1.25em;
+	text-align: center;
+}
+
+.Options > label:has(input[type="radio"]:checked) {
+	background-color: var(--Secundair-color);
+}
+
+.Options > label:hover {
+	background-color: var(--Secundair-color);
 }
 
 .NavButtons {
@@ -42,11 +61,11 @@
 }
 
 @media (min-width: 768px) {
-	.Buttons {
+	.Options {
 		max-width: 1500px;
 		grid-template-columns: repeat(5, 1fr);
 	}
-	.Buttons > button {
+	.Options > label {
 		margin: 1rem 1.5rem;
 	}
 }
