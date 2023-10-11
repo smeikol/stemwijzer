@@ -12,10 +12,11 @@ input[type="radio"] {
 
 .Options {
 	background-image: url(../../Assets/Images/arrows-blue-bg.png);
-	padding: 2rem 0;
+	padding: 2.5rem 0;
 	width: 100%;
 	display: grid;
 	flex-wrap: wrap;
+	background-size: contain;
 }
 
 .Options > label {
@@ -63,6 +64,7 @@ input[type="radio"] {
 @media (min-width: 768px) {
 	.Options {
 		max-width: 1500px;
+		padding: 2rem 0;
 		grid-template-columns: repeat(5, 1fr);
 	}
 	.Options > label {
