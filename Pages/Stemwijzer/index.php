@@ -26,6 +26,7 @@ $_SESSION["Questions"] = $STMT->fetch_all();
     <div class="QuestionWrapper">
         <p id="QuestionHeader"><?php echo $QUESTION["vraag"] ?></p>
         <div class="Options">
+            <input id="AsSelection" type="hidden" value="<?php echo $QUESTION["as_keuze"] ?>">
             <label>
                 <input name="Choice" type="radio" value="<?php echo 0 - $QUESTION["as_effect"] ?>">Niet mee eens
             </label>

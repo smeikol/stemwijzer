@@ -1,8 +1,10 @@
 const options = document.querySelectorAll('input[name="Choice"]');
 const nextButton = document.getElementById("NextButton");
 const question = document.getElementById("QuestionHeader");
+const asSelection = document.getElementById("AsSelection");
 var fetching = false;
-var uservalue = 0;
+var xvalue = 0;
+var yvalue = 0;
 options.forEach(function (element) {
 	element.addEventListener("click", function () {
 		nextButton.classList.remove("DissabledButtons");
@@ -18,8 +20,12 @@ function FetchNextQuestion() {
 	if (fetching) return;
 	options.forEach((element) => {
 		if (element.checked) {
-			uservalue += parseFloat(element.value);
-			console.log(uservalue);
+			if (asSelection.value == 0) {
+				xvalue += parseFloat(element.value);
+			}
+			if (asSelection.value == 1) {
+				yvalue += parseFloat(element.value);
+			}
 		}
 	});
 	fetching = true;
@@ -31,7 +37,7 @@ function FetchNextQuestion() {
 	})
 		.then((response) => response.json())
 		.then((data) => {
-			if (data["status"] == 0) window.location.href = "../../Pages/Result/?" + "value=" + uservalue;
+			if (data["status"] == 0) window.location.href = "../../Pages/Result/?" + "xvalue=" + xvalue + ",yvalue=" + yvalue;
 			fetching = false;
 			var index = 0;
 			options.forEach(function (element) {
@@ -42,6 +48,7 @@ function FetchNextQuestion() {
 				element.checked = false;
 				index++;
 			});
+			asSelection.value = data[0][2];
 			question.innerHTML = data[0][1];
 		})
 		.catch((error) => {
