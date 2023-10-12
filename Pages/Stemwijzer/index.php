@@ -4,8 +4,8 @@ include "../../Assets/Templates/Conn.php";
 $STMT = $CONN->query("SELECT * FROM `vraag`");
 if (!$STMT) die("False statement");
 
-$QUESTION = $STMT->fetch_row();
-$_SESSION["Questions"] = $STMT->fetch_all();
+$QUESTION = $STMT->fetch_assoc();
+$_SESSION["Questions"] = $STMT->fetch_array();
 ?>
 
 <!DOCTYPE html>
@@ -16,12 +16,13 @@ $_SESSION["Questions"] = $STMT->fetch_all();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../Assets/CSS/Main.css">
     <link rel="stylesheet" href="../../Assets/CSS/Stemwijzer.css">
+    <script src="../../Assets/JS/Stemwijzer.js" defer></script>
     <title>Stemwijzer</title>
 </head>
 
 <body>
     <div class="QuestionWrapper">
-        <p id="QuestionHeader">[Question]</p>
+        <p id="QuestionHeader"><?php echo $QUESTION["vraag"] ?></p>
         <div class="Options">
             <label>
                 <input name="Choice" type="radio">Niet mee eens
@@ -42,7 +43,7 @@ $_SESSION["Questions"] = $STMT->fetch_all();
     </div>
     <div class="NavButtons">
         <button class="BackButton">Back</button>
-        <button class="NextButton DissabledButtons">Next</button>
+        <button class="DissabledButtons" id="NextButton">Next</button>
     </div>
 </body>
 
