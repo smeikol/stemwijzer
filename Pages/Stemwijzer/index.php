@@ -5,7 +5,9 @@ $STMT = $CONN->query("SELECT * FROM `vraag`");
 if (!$STMT) die("False statement");
 
 $QUESTION = $STMT->fetch_assoc();
-$_SESSION["Questions"] = $STMT->fetch_array();
+$_SESSION["Questions"];
+
+$_SESSION["Questions"] = $STMT->fetch_all();
 ?>
 
 <!DOCTYPE html>
@@ -25,19 +27,19 @@ $_SESSION["Questions"] = $STMT->fetch_array();
         <p id="QuestionHeader"><?php echo $QUESTION["vraag"] ?></p>
         <div class="Options">
             <label>
-                <input name="Choice" type="radio">Niet mee eens
+                <input name="Choice" type="radio" value="<?php echo 0 - $QUESTION["as_effect"] ?>">Niet mee eens
             </label>
             <label>
-                <input name="Choice" type="radio">Beetje niet mee eens
+                <input name="Choice" type="radio" value="<?php echo 0 - ($QUESTION["as_effect"] / 2) ?>">Beetje niet mee eens
             </label>
             <label>
-                <input name="Choice" type="radio">Neutraal
+                <input name="Choice" type="radio" value="0">Neutraal
             </label>
             <label>
-                <input name="Choice" type="radio">Beetje mee eens
+                <input name="Choice" type="radio" value="<?php echo $QUESTION["as_effect"] / 2 ?>">Beetje mee eens
             </label>
             <label>
-                <input name="Choice" type="radio">Mee eens
+                <input name="Choice" type="radio" value="<?php echo $QUESTION["as_effect"] ?>">Mee eens
             </label>
         </div>
     </div>
