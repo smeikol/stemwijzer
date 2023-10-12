@@ -1,6 +1,11 @@
 <?php
+include "../../Assets/Templates/Conn.php";
 
+$STMT = $CONN->query("SELECT * FROM `vraag`");
+if (!$STMT) die("False statement");
 
+$QUESTION = $STMT->fetch_row();
+$_SESSION["Questions"] = $STMT->fetch_all();
 ?>
 
 <!DOCTYPE html>
