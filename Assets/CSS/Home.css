@@ -25,10 +25,10 @@
 }
 
 .button {
-	cursor: pointer;
 	margin-top: 2rem;
 }
 
-/* .button:hover {
-	background-color: var(--Secundair-color);
-} */
+.button:hover {
+	cursor: pointer;
+	/* background-color: var(--Secundair-color); */
+}
