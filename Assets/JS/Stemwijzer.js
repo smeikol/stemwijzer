@@ -31,17 +31,18 @@ function FetchNextQuestion() {
 	})
 		.then((response) => response.json())
 		.then((data) => {
+			if (data["status"] == 0) window.location.href = "../../Pages/Result/?" + "value=" + uservalue;
 			fetching = false;
 			var index = 0;
 			options.forEach(function (element) {
-				if (index == 0) element.value = 0 - data[3];
-				if (index == 1) element.value = 0 - data[3] / 2;
-				if (index == 3) element.value = data[3] / 2;
-				if (index == 4) element.value = data[3];
+				if (index == 0) element.value = 0 - data[0][3];
+				if (index == 1) element.value = 0 - data[0][3] / 2;
+				if (index == 3) element.value = data[0][3] / 2;
+				if (index == 4) element.value = data[0][3];
 				element.checked = false;
 				index++;
 			});
-			question.innerHTML = data[1];
+			question.innerHTML = data[0][1];
 		})
 		.catch((error) => {
 			console.error("Error HUISs:", error);

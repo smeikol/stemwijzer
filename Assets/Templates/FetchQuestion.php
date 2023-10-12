@@ -7,5 +7,6 @@ if (empty($_SESSION["Questions"])) {
     echo json_encode($STATUS);
     return;
 }
-echo json_encode($_SESSION["Questions"][0]);
+$array = array($_SESSION["Questions"][0], "status" => 1);
+echo json_encode($array);
 array_shift($_SESSION["Questions"]);
