@@ -1,0 +1,24 @@
+.Content {
+    margin: 50px auto;
+    width: 60%;
+    border: solid var(--Main-color) 2px;
+    border-radius: 15px;
+}
+
+input {
+    background-color: white;
+    color: black;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 80%;
+    margin: 10px 10px 20px;
+}
+
+button {
+    margin: 10px;
+}
+
+#btnBack {
+    display: block;
+    margin: 0 auto;
+}
