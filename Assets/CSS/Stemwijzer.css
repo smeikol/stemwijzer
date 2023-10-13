@@ -62,6 +62,10 @@ input[type="radio"] {
 	padding: 1rem 0;
 }
 
+.Result {
+	display: none;
+}
+
 @media (min-width: 768px) {
 	.Options {
 		max-width: 1500px;

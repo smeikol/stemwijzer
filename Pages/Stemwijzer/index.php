@@ -4,9 +4,9 @@ include "../../Assets/Templates/Conn.php";
 $STMT = $CONN->query("SELECT * FROM `vraag`");
 if (!$STMT) die("False statement");
 
-$QUESTION = $STMT->fetch_assoc();
-$_SESSION["Questions"];
-
+$QUESTION = $STMT->fetch_row();
+$_SESSION["PrefQuestions"] = array();
+$_SESSION["PrefQuestions"][] = $QUESTION;
 $_SESSION["Questions"] = $STMT->fetch_all();
 ?>
 
@@ -24,29 +24,32 @@ $_SESSION["Questions"] = $STMT->fetch_all();
 
 <body>
     <div class="QuestionWrapper">
-        <p id="QuestionHeader"><?php echo $QUESTION["vraag"] ?></p>
+        <p id="QuestionHeader"><?php echo $QUESTION["1"] ?></p>
         <div class="Options">
-            <input id="AsSelection" type="hidden" value="<?php echo $QUESTION["as_keuze"] ?>">
+            <input id="AsSelection" type="hidden" value="<?php echo $QUESTION["2"] ?>">
             <label>
-                <input name="Choice" type="radio" value="<?php echo 0 - $QUESTION["as_effect"] ?>">Niet mee eens
+                <input name="Choice" type="radio" value="<?php echo 0 - $QUESTION["3"] ?>">Niet mee eens
             </label>
             <label>
-                <input name="Choice" type="radio" value="<?php echo 0 - ($QUESTION["as_effect"] / 2) ?>">Beetje niet mee eens
+                <input name="Choice" type="radio" value="<?php echo 0 - ($QUESTION["3"] / 2) ?>">Beetje niet mee eens
             </label>
             <label>
                 <input name="Choice" type="radio" value="0">Neutraal
             </label>
             <label>
-                <input name="Choice" type="radio" value="<?php echo $QUESTION["as_effect"] / 2 ?>">Beetje mee eens
+                <input name="Choice" type="radio" value="<?php echo $QUESTION["3"] / 2 ?>">Beetje mee eens
             </label>
             <label>
-                <input name="Choice" type="radio" value="<?php echo $QUESTION["as_effect"] ?>">Mee eens
+                <input name="Choice" type="radio" value="<?php echo $QUESTION["3"] ?>">Mee eens
             </label>
         </div>
     </div>
     <div class="NavButtons">
-        <button class="BackButton">Back</button>
+        <button class="BackButton" id="BackButton">Back</button>
         <button class="DissabledButtons" id="NextButton">Next</button>
+    </div>
+    <div class="Result">
+
     </div>
 </body>
 
