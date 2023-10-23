@@ -25,6 +25,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
                 if (password_verify($password, $row['wachtwoord'])) {
                     $_SESSION['username'] = $row['gebruikersnaam'];
                     $_SESSION['id'] = $row['admin_id'];
+                    $_SESSION['logged_in'] = true;
                     header("Location: admin.php");
                     exit();
                 } else {
