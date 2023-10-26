@@ -31,3 +31,48 @@ button {
     border-radius: 5px;
     margin: 10px auto;
 }
+
+/* Styles voor Crud | Vragen */
+
+.container {
+    margin: 50px auto;
+    width: 70%;
+    border: solid var(--Main-color) 2px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th:last-child,
+td:last-child {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+}
+
+.action_a {
+    color: black;
+}
