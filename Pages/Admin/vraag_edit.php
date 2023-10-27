@@ -1,22 +1,31 @@
 <?php
 include_once "../../Assets/Templates/Conn.php";
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM vraag WHERE vraag_id='$id'";
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
+    $vraag_id = $_GET["id"];
+    
+    // Fetch the question based on the provided ID
+    $sql = "SELECT * FROM vraag WHERE vraag_id = $vraag_id";
     $result = $CONN->query($sql);
-    $row = $result->fetch_assoc();
-}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST['id'];
-    $vraag = $_POST['vraag'];
-
-    $sql = "UPDATE vraag SET vraag='$vraag' WHERE vraag_id='$id'";
-    if ($CONN->query($sql) === TRUE) {
-        header("Location: vragen_crud.php");
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $question = $row["vraag"];
     } else {
-        echo "Error: " . $sql . "<br>" . $CONN->error;
+        echo "Question not found.";
+        exit;
+    }
+} elseif ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_question"])) {
+    $vraag_id = $_POST["vraag_id"];
+    $new_question = $_POST["new_question"];
+
+    // Update the question in the database
+    $sql = "UPDATE vraag SET vraag = '$new_question' WHERE vraag_id = $vraag_id";
+    if ($CONN->query($sql) === TRUE) {
+        header("Location: vragen_crud.php"); // Redirect to the question list after the update
+        exit;
+    } else {
+        echo "Error updating question: " . $CONN->error;
     }
 }
 ?>
@@ -27,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Question</title>
+    <title>CRUD | Vraag Bewerken</title>
     <link rel="stylesheet" href="../../Assets/CSS/Main.css">
     <link rel="stylesheet" href="../../Assets/CSS/Home.css">
     <link rel="stylesheet" href="../../Assets/CSS/admin.css">
@@ -41,12 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <h2>Vraag Bewerken</h2>
 
-        <form method="post">
-            <input type="hidden" name="id" value="<?php echo $row["vraag_id"]; ?>">
-            <label for="vraag">Vraag :</label>
-            <input type="text" id="vraag" name="vraag" value="<?php echo $row["vraag"]; ?>" required>
-            <br>
-            <input type="submit" class="btn_opslaan" value="Opslaan" style="cursor: pointer;">
+        <form method="post" action="">
+            <input type="hidden" name="vraag_id" value="<?php echo $vraag_id; ?>">
+            <label for="new_question">Nieuwe Vraag :</label>
+            <input type="text" name="new_question" value="<?php echo $question; ?>">
+            <input type="submit" name="update_question" value="Bijwerken" style="width: 20%; cursor: pointer;">
         </form>
     </div>
 </body>
