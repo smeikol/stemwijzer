@@ -40,7 +40,7 @@ $result = $CONN->query($sql);
                     echo "<td>" . $row["vraag"] . "</td>";
                     echo "<td>
                             <a href='vraag_edit.php?id=" . $row["vraag_id"] . "' class='action_a'>Bewerken</a>
-                            <a href='vraag_del.php?id=" . $row["vraag_id"] . "' class='action_a'>Verwijderen</a>
+                            <a href='vraag_del.php?vraag_id=" . $row["vraag_id"] . "' class='action_a' onclick='return confirmDelete()'>Verwijderen</a>
                          </td>";
                     echo "</tr>";
                 }
@@ -53,3 +53,9 @@ $result = $CONN->query($sql);
 </body>
 
 </html>
+
+<script>
+    function confirmDelete() {
+        return confirm("Weet je zeker dat je deze vraag wilt verwijderen?");
+    }
+</script>
