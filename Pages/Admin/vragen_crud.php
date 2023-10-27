@@ -25,6 +25,8 @@ $result = $CONN->query($sql);
     <div class="container">
         <h2>Overzicht</h2>
 
+        <a href="add_vraag.php" id="add_vraag">Vraag Toevoegen</a>
+
         <table>
             <tr>
                 <th>ID</th>
@@ -40,7 +42,7 @@ $result = $CONN->query($sql);
                     echo "<td>" . $row["vraag"] . "</td>";
                     echo "<td>
                             <a href='vraag_edit.php?id=" . $row["vraag_id"] . "' class='action_a'>Bewerken</a>
-                            <a href='vraag_del.php?vraag_id=" . $row["vraag_id"] . "' class='action_a' onclick='return confirmDelete()'>Verwijderen</a>
+                            <a href='vraag_del.php?vraag_id=" . $row["vraag_id"] . "' class='action_del' onclick='return confirmDelete()'>Verwijderen</a>
                          </td>";
                     echo "</tr>";
                 }
