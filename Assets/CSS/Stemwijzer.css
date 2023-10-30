@@ -33,6 +33,7 @@ input[type="radio"] {
 
 .Options > label:has(input[type="radio"]:checked) {
 	background-color: var(--Secundair-color);
+	scale: 1.2;
 }
 
 .Options > label:hover {

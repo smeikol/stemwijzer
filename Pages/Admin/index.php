@@ -1,8 +1,9 @@
 <?php
 include_once "../../Assets/Templates/Conn.php";
 
-if(isset($_POST['username']) && isset($_POST['password'])) {
-    function validate($data) {
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    function validate($data)
+    {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
@@ -11,17 +12,17 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     $username = validate($_POST['username']);
     $password = validate($_POST['password']);
 
-    if(empty($username)) {
+    if (empty($username)) {
         header("Location:index.php?error=Gebruikersnaam is verplicht");
         exit();
-    } else if(empty($password)) {
+    } else if (empty($password)) {
         header("Location:index.php?error=Wachtwoord is verplicht");
         exit();
     } else {
         $sql = "SELECT * FROM admin WHERE gebruikersnaam='$username'";
         $result = mysqli_query($CONN, $sql);
-        if(mysqli_num_rows($result) > 0) {
-            while($row = mysqli_fetch_assoc($result)) {
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 if (password_verify($password, $row['wachtwoord'])) {
                     $_SESSION['username'] = $row['gebruikersnaam'];
                     $_SESSION['id'] = $row['admin_id'];
@@ -52,6 +53,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     <link rel="stylesheet" href="../../Assets/CSS/Home.css">
     <link rel="stylesheet" href="../../Assets/CSS/admin.css">
 </head>
+
 <body>
     <div class="header">
         <h1>ROCMN Stemwijzer Admin</h1>
@@ -60,8 +62,8 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     <div class="Content">
         <h2>Inloggen</h2>
         <form action="index.php" method="post">
-            <?php if(isset($_GET['error'])) { ?>
-            <p class="error"><?php echo $_GET['error'];?></p>
+            <?php if (isset($_GET['error'])) { ?>
+                <p class="error"><?php echo $_GET['error']; ?></p>
             <?php } ?>
             <label for="username"><b>Gebruikersnaam</b></label>
             <input type="text" placeholder="Gebruikersnaam" name="username" required>
@@ -76,4 +78,5 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     <a href="../Home/" class="button" id="btnBack"><button>Terug</button></a>
 
 </body>
+
 </html>

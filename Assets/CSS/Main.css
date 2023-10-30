@@ -29,6 +29,10 @@ button {
 	font-size: 1.25em;
 }
 
+button:active {
+	scale: 1.2;
+}
+
 button:hover {
 	background-color: var(--Secundair-color);
 	cursor: pointer;
