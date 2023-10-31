@@ -73,3 +73,7 @@ input {
 	padding: 0.6rem;
 	background-color: var(--Main-color);
 }
+.border-box{
+    padding-left: 50px;
+    padding-right: 50px;
+}
