@@ -1,15 +1,18 @@
 <?php
 include_once "../../Assets/Templates/Conn.php";
-
+$partijmatch1naam = "";
+$partijmatch1 = 9999999999999999999999999999999999999999999;
+$partijmatch3 = 9999999999999999999999999999999999999999999;
 $sql = "SELECT * FROM partij";
 $stmt = $CONN->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
 
 while ($row = $result->fetch_array()) {
-    $patijid = $row['partij_id'];
-    $partijnaam = $row['naam']; 
-    
+    $partijid = $row['partij_id'];
+    $partijnaam = $row['naam'];
+    $partijscorey = 0;
+    $partijscorex = 0;
     $sql2 = "SELECT * FROM vraag";
     $stmt2 = $CONN->prepare($sql2);
     $stmt2->execute();
@@ -17,10 +20,49 @@ while ($row = $result->fetch_array()) {
 
     while ($row2 = $result2->fetch_array()) {
         $vraagid = $row2['vraag_id'];
-        $value = $row2['as_effect'];
+        $value = $row2['as_keuze'];
+
+        $sql3 = "SELECT * FROM partij_antwoord WHERE vraag_id = ? AND partij_id = ? ";
+        $stmt3 = $CONN->prepare($sql3);
+        $stmt3->bind_param('ss', $vraagid, $partijid);
+        $stmt3->execute();
+        $result3 = $stmt3->get_result();
+        
+        while ($row3 = $result3->fetch_array()) {
+            if ($value == 0) {
+                $partijscorex = $partijscorex + $row3['antwoord'];
+            } else if ($value == 1) {
+                $partijscorey = $partijscorex + $row3['antwoord'];
+            }
+        }
     }
+ 
+    $partijdifx = abs($partijscorex - $_GET['xvalue']);
+    $partijdify = abs($partijscorey - $_GET['yvalue']);
+    $partijdifa = $partijdifx + $partijdify;
+
+    if ($partijmatch1 > $partijdifa){
+        $partijmatch2naam = $partijmatch1naam;
+        $partijmatch2 = $partijmatch1;
+        $partijmatch1 = $partijdifa;
+        $partijmatch1naam = $partijnaam;
+        
+    } 
+    else if ($partijmatch2 > $partijdifa) {
+        $partijmatch3naam = $partijmatch2naam;
+        $partijmatch3 = $partijmatch2;
+        $partijmatch2 = $partijdifa;
+        $partijmatch2naam = $partijnaam;
+    }
+    else if ($partijmatch3 > $partijdifa) {
+        $partijmatch3 = $partijdifa;
+        $partijmatch3naam = $partijnaam;
+    }
+
+
 }
 
+$HTMLPARTY = "1: " . $partijmatch1naam. "<br>" . "2: " . $partijmatch2naam. "<br>" . "3: " . $partijmatch3naam. "<br>";
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,20 +83,9 @@ while ($row = $result->fetch_array()) {
         <div class="result-section">
             <h2>Jouw Politieke Voorkeuren</h2>
             <ul class="result-list">
-                <li><strong>PVV:</strong> 100%</li>
-                <li><strong>FvD:</strong> 80%</li>
-                <li><strong>JA21:</strong> 75%</li>
-                <li><strong>SGP:</strong> 50%</li>
-                <li><strong>VVD:</strong> 45%</li>
-            </ul>
-        </div>
-
-        <div class="standpunten-section">
-            <h2>Jouw Standpunten</h2>
-            <ul class="standpunten-list">
-                <li><strong>Standpunt 1:</strong> Voorkeur voor hogere belastingen voor hogere inkomens.</li>
-                <li><strong>Standpunt 2:</strong> Ondersteuning van duurzame energie en milieubewuste maatregelen.</li>
-                <li><strong>Standpunt 3:</strong> Voorstander van sociale voorzieningen en welzijnsprogramma's.</li>
+                <?php 
+                echo $HTMLPARTY;
+                ?>
             </ul>
         </div>
 
