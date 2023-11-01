@@ -1,3 +1,27 @@
+<?php
+include_once "../../Assets/Templates/Conn.php";
+
+$sql = "SELECT * FROM partij";
+$stmt = $CONN->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_array()) {
+    $patijid = $row['partij_id'];
+    $partijnaam = $row['naam']; 
+    
+    $sql2 = "SELECT * FROM vraag";
+    $stmt2 = $CONN->prepare($sql2);
+    $stmt2->execute();
+    $result2 = $stmt2->get_result();
+
+    while ($row2 = $result2->fetch_array()) {
+        $vraagid = $row2['vraag_id'];
+        $value = $row2['as_effect'];
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
