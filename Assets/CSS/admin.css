@@ -43,7 +43,7 @@ button {
 }
 
 table {
-    width: 80%;
+    width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
     background-color: #fff;
@@ -123,6 +123,6 @@ th {
 .admin-background {
     background-color: var(--Main-color);
 }
-.container h2 {
+.container h2, .text-white {
     color: #FFFFFF;
 }
