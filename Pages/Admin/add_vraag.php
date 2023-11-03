@@ -7,8 +7,10 @@ $result = $CONN->query($sql);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vraag = $_POST['vraag'];
+    $as_keuze = $_POST['as_keuze'];
+    $as_effect = $_POST['as_keuze'];
 
-    $sql = "INSERT INTO vraag (vraag) VALUES ('$vraag')";
+    $sql = "INSERT INTO vraag (vraag, as_keuze, as_effect) VALUES ('$vraag', '$as_keuze', '$as_effect')";
     if ($CONN->query($sql) === TRUE) {
         header("Location: vragen_crud.php");
     } else {
@@ -41,7 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="vraag">Vraag :</label>
             <input type="text" id="vraag" name="vraag" required>
             <br>
-
+            <label for="as_keuze">As Keuze :</label>
+            <input type="number" id="as_keuze" name="as_keuze" required style="width: 40px;" >
+            <br>
+            <label for="as_effect">As Effect :</label>
+            <input type="number" id="as_effect" name="as_effect" required style="width: 40px;">
+            <br>
             <input type="submit" value="Aanmaken" style="width: 20%; cursor: pointer;">
         </form>
     </div>

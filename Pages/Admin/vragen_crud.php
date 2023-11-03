@@ -6,7 +6,7 @@ $result = $CONN->query($sql);
 
 ?>
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" class="admin-background">
 
 <head>
     <meta charset="UTF-8">
