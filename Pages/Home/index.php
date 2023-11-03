@@ -26,6 +26,9 @@
         <a href="../Stemwijzer/" class="button">
             <button>Start de Stemwijzer</button>
         </a>
+        <a href="../Admin/index.php" class="button">
+            <button>Admin</button>
+        </a>
     </div>
 </div>
 </body>
