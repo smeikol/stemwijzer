@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="vraag" name="vraag" required>
             <br>
             <label for="as_keuze">As Keuze :</label>
-            <input type="number" id="as_keuze" name="as_keuze" required style="width: 40px;">
+            <input type="number" id="as_keuze" name="as_keuze" required style="width: 40px;" >
             <br>
             <label for="as_effect">As Effect :</label>
             <input type="number" id="as_effect" name="as_effect" required style="width: 40px;">
