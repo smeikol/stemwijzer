@@ -1,68 +1,82 @@
 <?php
-include_once "../../Assets/Templates/Conn.php";
+session_start();
 
-$counter = 0;
-$vraagid = $_GET['id'];
+$CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
+if (!$CONN) {
+    die("Connectie niet gelukt ERROR: " . mysqli_connect_error());
+}
+$partij_id;
+if (isset($_GET['partij_id'])) {
+    $partij_id = $_GET['partij_id'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-$sql3 = "SELECT * FROM vraag WHERE vraag_id = ?";
-$stmt3 = $CONN->prepare($sql3);
-$stmt3->bind_param('s', $vraagid);
-$stmt3->execute();
-$result3 = $stmt3->get_result();
+        $antwoorden = $_POST['antwoord'];
+        if (is_array($antwoorden)) {
+            foreach ($antwoorden as $vraag_id => $antwoord) {
+                $sql = "UPDATE partij_antwoord SET antwoord='$antwoord' WHERE partij_id='$partij_id' AND vraag_id='$vraag_id'";
+                $result = mysqli_query($CONN, $sql);
 
-if (isset($_POST['submit'])) {
-
-
-
+                if (!$result) {
+                    die("Error: " . mysqli_error($CONN));
+                }
+            }
+            echo "Gelukt.";
+        }
+    }
+    $sql = "SELECT * FROM partij";
+    $result = mysqli_query($CONN, $sql);
+    $sql = "SELECT * FROM partij_antwoord WHERE vraag_id = ? ORDER BY partij_id";
+    $STMT = $CONN->prepare($sql);
+    $STMT->bind_param("i", $partij_id);
+    $STMT->execute();
+    $RESULT = $STMT->get_result();
+    $patij_antwoorden;
+    while ($row = $RESULT->fetch_array()) {
+        $patij_antwoorden[$row["vraag_id"]] = $row;
+    }
 }
 
 
-
-
+if (!$result) {
+    die("Error: " . mysqli_error($CONN));
+}
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 </head>
 
 <body>
-    <form method="post" action="vraagpartijantwoord.php?id=<?php echo $vraagid ?>">
-        <?php
-        while ($row3 = $result3->fetch_array()) {
 
-            $sql = "SELECT * FROM partij";
-            $stmt = $CONN->prepare($sql);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            while ($row = $result->fetch_array()) {
-                $partijid = $row['partij_id'];
-                $partijnaam = $row['naam'];
-                $sql2 = "SELECT * FROM partij_antwoord WHERE vraag_id = ? AND partij_id = ? ";
-                $stmt2 = $CONN->prepare($sql2);
-                $stmt2->bind_param('ss', $vraagid, $partijid);
-                $stmt2->execute();
-                $result2 = $stmt2->get_result();
 
-                while ($row2 = $result2->fetch_array()) {
-                    $counter++;
-                    echo '<div>' . $partijnaam . '</div>' . '<select name="antwoord'.$counter.'">
-        <option value="' . $row3['as_effect'] . '">Mee eens</option>
-        <option value="' . $row3['as_effect'] / 2 . '">Beetje mee eens</option>
-        <option value="0">Neutraal</option>
-        <option value="' . 0 - $row3['as_effect'] / 2 . '">Beetje niet mee eens</option>
-        <option value="' . 0 - $row3['as_effect'] . '">Niet mee eens</option>
-      </select>';
-                }
-            }
-        }
-        ?>
-        <button type="submit" name="submit"> opslaan </button>
 
+    <form method='post'>
+        <table>
+            <tr>
+                <th>Vraag ID</th>
+                <th>Vraag</th>
+                <th>Antwoord</th>
+            </tr>
+
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) : ?>
+                <tr>
+                    <td><?php echo $row['vraag_id'] ?></td>
+                    <td><?php echo $row['vraag'] ?></td>
+                    <td>
+                        <select name='antwoord[<?php echo $row['vraag_id'] ?>]'>
+                            <option value='<?php echo $row["as_effect"] ?>' <?php if ($patij_antwoorden[$row["vraag_id"]]["antwoord"] == $row["as_effect"]) : ?> selected <?php endif ?>>Eens</option>
+                            <option value='<?php echo $row["as_effect"] / 2 ?>' <?php if ($patij_antwoorden[$row["vraag_id"]]["antwoord"] == $row["as_effect"] / 2) : ?> selected <?php endif ?>>Beetje mee eens</option>
+                            <option value='0' <?php if ($patij_antwoorden[$row["vraag_id"]]["antwoord"] == 0) : ?> selected <?php endif ?>>Neutraal</option>
+                            <option value='<?php echo 0 - $row["as_effect"] / 2 ?>' <?php if ($patij_antwoorden[$row["vraag_id"]]["antwoord"] == 0 - $row["as_effect"] / 2) : ?> selected <?php endif ?>>Beetje oneens</option>
+                            <option value='<?php echo 0 - $row["as_effect"] ?>' <?php if ($patij_antwoorden[$row["vraag_id"]]["antwoord"] == 0 - $row["as_effect"]) : ?> selected <?php endif ?>>Oneens</option>
+                        </select>
+                    </td>
+                </tr>
+            <?php endwhile ?>
+        </table>
+        <input type='submit' value='Submit'>
     </form>
 </body>
 
