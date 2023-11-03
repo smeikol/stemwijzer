@@ -3,15 +3,30 @@ const backButton = document.getElementById("BackButton");
 const nextButton = document.getElementById("NextButton");
 const question = document.getElementById("QuestionHeader");
 const asSelection = document.getElementById("AsSelection");
+const counter = document.getElementById("counter");
 var fetching = false;
 var valueArray = [];
 var arrayIndex = 0;
+UpdateProgress();
 
 options.forEach(function (element) {
 	element.addEventListener("click", function () {
-		nextButton.classList.remove("DissabledButtons");
+		NextButtonActivation("remove");
 	});
 });
+
+function UpdateProgress() {
+	counter.innerHTML = arrayIndex + 1;
+}
+
+function NextButtonActivation(state) {
+	if (state == "remove") {
+		nextButton.classList.remove("DissabledButtons");
+	}
+	if (state == "add") {
+		nextButton.classList.add("DissabledButtons");
+	}
+}
 
 nextButton.addEventListener("click", function () {
 	FetchNextQuestion();
@@ -80,6 +95,8 @@ function FetchNextQuestion() {
 			});
 			asSelection.value = data[0][2];
 			question.innerHTML = data[0][1];
+			NextButtonActivation("add");
+			UpdateProgress();
 		})
 		.catch((error) => {
 			console.error("Error HUISs:", error);
@@ -119,6 +136,8 @@ function FetchBackQuestion() {
 			});
 			arrayIndex--;
 			question.innerHTML = data[0][1];
+			NextButtonActivation("remove");
+			UpdateProgress();
 		})
 		.catch((error) => {
 			console.error("Error HUISs:", error);
@@ -175,6 +194,7 @@ function FetchedNextQuestion() {
 				index++;
 			});
 			question.innerHTML = data[0][1];
+			UpdateProgress();
 		})
 		.catch((error) => {
 			console.error("Error HUISs:", error);

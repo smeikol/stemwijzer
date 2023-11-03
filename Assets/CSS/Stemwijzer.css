@@ -3,11 +3,12 @@ input[type="radio"] {
 }
 
 .QuestionWrapper {
-	height: calc(100% - 3rem - 39px);
+	padding-top: 1rem;
+	min-height: calc(100% - 3rem - 1rem - 39px);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: space-between;
 }
 
 .Options {
@@ -29,6 +30,9 @@ input[type="radio"] {
 	font-size: 1.25em;
 	text-align: center;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .Options > label:has(input[type="radio"]:checked) {
@@ -43,9 +47,7 @@ input[type="radio"] {
 .NavButtons {
 	display: flex;
 	justify-content: space-around;
-}
-
-.NavButtons > button {
+	align-items: center;
 	margin: 1.5rem;
 }
 
@@ -54,13 +56,18 @@ input[type="radio"] {
 	background-color: grey;
 }
 
+#progress {
+	display: flex;
+}
+
 #QuestionHeader {
 	background-color: var(--Secundair-color);
 	width: 50%;
 	text-align: center;
 	color: white;
 	border-radius: 1rem;
-	padding: 1rem 0;
+	padding: 1rem;
+	margin-bottom: 1rem;
 }
 
 .Result {

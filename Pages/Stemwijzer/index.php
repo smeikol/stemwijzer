@@ -4,6 +4,7 @@ include "../../Assets/Templates/Conn.php";
 $STMT = $CONN->query("SELECT * FROM `vraag`");
 if (!$STMT) die("False statement");
 
+$AMOUNT = $STMT->num_rows;
 $QUESTION = $STMT->fetch_row();
 $_SESSION["PrefQuestions"] = array();
 $_SESSION["PrefQuestions"][] = $QUESTION;
@@ -46,6 +47,10 @@ $_SESSION["Questions"] = $STMT->fetch_all();
     </div>
     <div class="NavButtons">
         <button class="BackButton" id="BackButton">Back</button>
+        <div id="progress">
+            <p id="counter"></p>
+            <p><?php echo "/" . $AMOUNT ?></p>
+        </div>
         <button class="DissabledButtons" id="NextButton">Next</button>
     </div>
     <div class="Result">

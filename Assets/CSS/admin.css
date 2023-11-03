@@ -11,6 +11,8 @@ input {
     border: 1px solid lightgray;
     border-radius: 5px;
     width: 80%;
+    max-width: 10rem;
+    height: 1.5rem;
     margin: 10px 10px 20px;
 }
 
@@ -43,7 +45,7 @@ button {
 }
 
 table {
-    width: 80%;
+    width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
     background-color: #fff;
@@ -121,8 +123,22 @@ th {
     font-weight: bold;
 }
 .admin-background {
-    background-color: var(--Main-color);
+    background-color: #2e3192;
 }
-.container h2 {
+.container h2, .text-white {
     color: #FFFFFF;
+}
+.admin-fontstyle {
+    font-family: Arial, sans-serif;
+}
+.toevoeg_button {
+    height: 2rem;
+    width: 7rem;
+    font-size: medium;
+}
+
+@media (max-width: 485px) {
+    .margin-button{
+        margin-bottom: 7px;
+    }
 }
