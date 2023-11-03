@@ -46,18 +46,19 @@
     <?php
     if ($result->num_rows > 0) {
         echo '<table>';
-        echo '<tr><th>Naam</th><th>Actie</th></tr>';
+        echo '<tr><th>Name</th><th>Action</th></tr>';
         while ($row = $result->fetch_assoc()) {
             echo '<tr>';
             echo '<td>' . $row['naam'] . '</td>';
-            echo '<td><a class="action_del margin-button" href="?verwijderen=' . $row['partij_id'] . '">Verwijderen</a> <a class="action_a" href="?bijwerken=' . $row['partij_id'] . '">Bijwerken</a></td>';
+            echo '<td><a class="delete-button" href="?verwijderen=' . $row['partij_id'] . '">Delete</a> | <a class="update-button" href="?bijwerken=' . $row['partij_id'] . '">Update</a> | <a class="view-button" href="partij_vragen.php?partij_id=' . $row['partij_id'] . '">View</a></td>';
             echo '</tr>';
         }
         echo '</table>';
     } else {
-        echo "Geen partijen gevonden.";
+        echo "No parties found.";
     }
     ?>
+
 
     <!-- Update - Form to update party name -->
     <?php
