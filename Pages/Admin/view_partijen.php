@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="admin-fontstyle">
 <head>
     <title>CRUD Partijen</title>
     <link rel="stylesheet" href="../../Assets/CSS/admin.css">
@@ -23,6 +23,7 @@
         $sql = "INSERT INTO partij (naam) VALUES ('$naam')";
         if ($CONN->query($sql) === TRUE) {
             echo "Party successfully added.";
+            header("Refresh:0");
         } else {
             echo "Error adding party: " . $CONN->error;
         }
@@ -37,7 +38,7 @@
     <h2>Partij toevoegen</h2>
     <form method="post">
         <label><a class="text-white">Naam:</a><input type="text" name="naam"></label>
-        <input type="submit" name="toevoegen" value="Toevoegen">
+        <input class="action_a toevoeg_button" type="submit" name="toevoegen" value="Toevoegen">
     </form>
 
     <!-- Read - List of parties in a table -->
@@ -49,7 +50,7 @@
         while ($row = $result->fetch_assoc()) {
             echo '<tr>';
             echo '<td>' . $row['naam'] . '</td>';
-            echo '<td><a class="action_del" href="?verwijderen=' . $row['partij_id'] . '">Verwijderen</a> <a class="action_a" href="?bijwerken=' . $row['partij_id'] . '">Bijwerken</a></td>';
+            echo '<td><a class="action_del margin-button" href="?verwijderen=' . $row['partij_id'] . '">Verwijderen</a> <a class="action_a" href="?bijwerken=' . $row['partij_id'] . '">Bijwerken</a></td>';
             echo '</tr>';
         }
         echo '</table>';
@@ -66,11 +67,11 @@
         $result = $CONN->query($sql);
         $row = $result->fetch_assoc();
     ?>
-        <h2>Werk partije naam bij</h2>
+        <h2>Werk de naam van de partij bij</h2>
         <form method="post">
             <input type="hidden" name="partij_id" value="<?php echo $row['partij_id']; ?>">
             <label><a class="text-white">Nieuwe naam:</a> <input type="text" name="nieuwe_naam" value="<?php echo $row['naam']; ?>"></label>
-            <input type="submit" name="bijwerken" value="Bijwerken">
+            <input class="action_a toevoeg_button" type="submit" name="bijwerken" value="Bijwerken">
         </form>
     <?php
     }
@@ -83,9 +84,10 @@
         $sql = "UPDATE partij SET naam='$nieuwe_naam' WHERE partij_id='$partij_id'";
 
         if ($CONN->query($sql) === TRUE) {
-            echo "Party name updated successfully.";
+            echo "<a class=\"text-white\">Partij naam succesvol veranderd.</a>";
+            header("Refresh:0");
         } else {
-            echo "Error updating party name: " . $CONN->error;
+            echo "<a class=\"text-white\">Error updaten partij naam: " . $CONN->error . "</a>";
         }
     }
 
@@ -94,9 +96,10 @@
         $partij_id = $_GET['verwijderen'];
         $sql = "DELETE FROM partij WHERE partij_id='$partij_id'";
         if ($CONN->query($sql) === TRUE) {
-            echo "Party successfully deleted.";
+            echo "<a class=\"text-white\">Partij naam succesvol verwijderd.</a>";
+            header("Location: view_partijen.php");
         } else {
-            echo "Error deleting party: " . $CONN->error;
+            echo "<a class=\"text-white\">Error vewijderen van partij: " . $CONN->error . "</a>";
         }
     }
     ?>
