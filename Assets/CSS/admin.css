@@ -35,7 +35,7 @@ button {
 /* Styles voor Crud | Vragen */
 
 .container {
-    margin: 50px auto;
+    margin: 0 auto 50px auto;
     width: 70%;
     border: solid var(--Main-color) 2px;
     border-radius: 15px;
@@ -87,6 +87,7 @@ th {
     margin-right: 10px;
     border: none;
     border-radius: 4px;
+    margin-bottom: 7px;
 }
 
 .action_del {
@@ -113,9 +114,15 @@ th {
 }
 
 #add_vraag {
-    color: black;
+    color: white;
     border-radius: 10px;
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 8px 16px;
     font-weight: bold;
+}
+.admin-background {
+    background-color: var(--Main-color);
+}
+.container h2 {
+    color: #FFFFFF;
 }
