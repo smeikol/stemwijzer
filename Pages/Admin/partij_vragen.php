@@ -45,6 +45,7 @@ if (!$result) {
 <html>
 
 <head>
+    <link rel="stylesheet" href="../../Assets/CSS/partij_vragen.css">
 </head>
 
 <body>
