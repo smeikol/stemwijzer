@@ -67,7 +67,7 @@ function FetchNextQuestion() {
 				xvalue += parseFloat(element[0]);
 				yvalue += parseFloat(element[1]);
 			});
-			if (data["status"] == 0) window.location.href = "../../Pages/Result/?" + "xvalue=" + xvalue + ",yvalue=" + yvalue;
+			if (data["status"] == 0) window.location.href = "../../Pages/Result/?" + "xvalue=" + xvalue + "&yvalue=" + yvalue;
 			fetching = false;
 			var index = 0;
 			options.forEach(function (element) {
