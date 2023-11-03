@@ -1,3 +1,7 @@
+html {
+    overflow: hidden;
+    }
+
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
@@ -5,6 +9,7 @@ body {
     overflow-x: hidden;
     background-color: var(--Main-color); /* Achtergrondkleur */
     color: var(--Secundair-color); /* Tekstkleur */
+
 }
 .header {
     text-align: center;
@@ -13,7 +18,7 @@ body {
 .result-section, .standpunten-section, .overwegingen-section {
     margin-bottom: 20px;
     background-color: white;
-    padding: 20px;
+    padding: 5px 20px 20px 20px;
     border-radius: 10px;
 }
 .result-list, .standpunten-list {
@@ -25,4 +30,20 @@ body {
 }
 .result-list li strong, .standpunten-list li strong {
     margin-right: 10px;
+}
+h2 {
+    margin-top: 0;
+}
+
+@media (max-width: 480px) {
+    .result-section {
+        padding: 10px;
+    }
+    body {
+        height: auto;
+
+    }
+    p {
+        font-size: 20px;
+    }
 }

@@ -27,7 +27,7 @@ while ($row = $result->fetch_array()) {
         $stmt3->bind_param('ss', $vraagid, $partijid);
         $stmt3->execute();
         $result3 = $stmt3->get_result();
-        
+
         while ($row3 = $result3->fetch_array()) {
             if ($value == 0) {
                 $partijscorex = $partijscorex + $row3['antwoord'];
@@ -36,25 +36,23 @@ while ($row = $result->fetch_array()) {
             }
         }
     }
- 
+
     $partijdifx = abs($partijscorex - $_GET['xvalue']);
     $partijdify = abs($partijscorey - $_GET['yvalue']);
     $partijdifa = $partijdifx + $partijdify;
 
-    if ($partijmatch1 > $partijdifa){
+    if ($partijmatch1 > $partijdifa) {
         $partijmatch2naam = $partijmatch1naam;
         $partijmatch2 = $partijmatch1;
         $partijmatch1 = $partijdifa;
         $partijmatch1naam = $partijnaam;
-        
-    } 
-    else if ($partijmatch2 > $partijdifa) {
+
+    } else if ($partijmatch2 > $partijdifa) {
         $partijmatch3naam = $partijmatch2naam;
         $partijmatch3 = $partijmatch2;
         $partijmatch2 = $partijdifa;
         $partijmatch2naam = $partijnaam;
-    }
-    else if ($partijmatch3 > $partijdifa) {
+    } else if ($partijmatch3 > $partijdifa) {
         $partijmatch3 = $partijdifa;
         $partijmatch3naam = $partijnaam;
     }
@@ -62,7 +60,7 @@ while ($row = $result->fetch_array()) {
 
 }
 
-$HTMLPARTY = "1: " . $partijmatch1naam. "<br>" . "2: " . $partijmatch2naam. "<br>" . "3: " . $partijmatch3naam. "<br>";
+$HTMLPARTY = "1: " . $partijmatch1naam . "<br>" . "2: " . $partijmatch2naam . "<br>" . "3: " . $partijmatch3naam . "<br>";
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,32 +70,34 @@ $HTMLPARTY = "1: " . $partijmatch1naam. "<br>" . "2: " . $partijmatch2naam. "<br
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../Assets/CSS/Main.css">
     <link rel="stylesheet" href="../../Assets/CSS/Home.css">
+    <link rel="stylesheet" href="../../Assets/CSS/Result.css">
 </head>
 
 <body>
-    <div class="header">
-        <h1>ROCMN Stemwijzer Resultaten</h1>
+<div class="header">
+    <h1>ROCMN Stemwijzer Resultaten</h1>
+</div>
+
+<div class="border-box">
+    <div class="result-section">
+        <h2>Jouw Politieke Voorkeuren</h2>
+        <ul class="result-list">
+
+            <?php
+            echo $HTMLPARTY;
+            ?>
+        </ul>
     </div>
 
-    <div class="border-box">
-        <div class="result-section">
-            <h2>Jouw Politieke Voorkeuren</h2>
-            <ul class="result-list">
-                <?php 
-                echo $HTMLPARTY;
-                ?>
-            </ul>
-        </div>
-
-        <div class="overwegingen-section">
-            <h2>Overwegingen</h2>
-            <p>
-                Het is belangrijk om deze resultaten te gebruiken als een startpunt voor verdere onderzoek en om meer te
-                leren over de partijen en hun programma's. Het is verstandig om de partijen en hun standpunten nader te
-                onderzoeken voordat je je uiteindelijke keuze maakt.
-            </p>
-        </div>
+    <div class="overwegingen-section">
+        <h2>Overwegingen</h2>
+        <p>
+            Het is belangrijk om deze resultaten te gebruiken als een startpunt voor verdere onderzoek en om meer te
+            leren over de partijen en hun programma's. Het is verstandig om de partijen en hun standpunten nader te
+            onderzoeken voordat je je uiteindelijke keuze maakt.
+        </p>
     </div>
+</div>
 </body>
 
 </html>
