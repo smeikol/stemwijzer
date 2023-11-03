@@ -8,7 +8,7 @@ if (!$CONN) {
 $partij_id;
 if (isset($_GET['partij_id'])) {
     $partij_id = $_GET['partij_id'];
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['submit'])) {
 
         $antwoorden = $_POST['antwoord'];
         if (is_array($antwoorden)) {

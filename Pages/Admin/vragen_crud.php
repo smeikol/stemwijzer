@@ -43,6 +43,7 @@ $result = $CONN->query($sql);
                     echo "<td>
                             <a href='vraag_edit.php?id=" . $row["vraag_id"] . "' class='action_a'>Bewerken</a>
                             <a href='vraag_del.php?vraag_id=" . $row["vraag_id"] . "' class='action_del' onclick='return confirmDelete()'>Verwijderen</a>
+                            <a href='Vraagpartijantwoord.php?vraag_id=" . $row["vraag_id"] . "' class='action_a'>Beantwoorden als partij</a>
                          </td>";
                     echo "</tr>";
                 }
