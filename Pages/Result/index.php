@@ -7,6 +7,7 @@ $sql = "SELECT * FROM partij";
 $stmt = $CONN->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
+$ARRAY = array();
 
 while ($row = $result->fetch_array()) {
     $partijid = $row['partij_id'];
@@ -41,12 +42,13 @@ while ($row = $result->fetch_array()) {
     $partijdify = abs($partijscorey - $_GET['yvalue']);
     $partijdifa = $partijdifx + $partijdify;
 
+    array_push($ARRAY, $partijdifa);
+
     if ($partijmatch1 > $partijdifa) {
         $partijmatch2naam = $partijmatch1naam;
         $partijmatch2 = $partijmatch1;
         $partijmatch1 = $partijdifa;
         $partijmatch1naam = $partijnaam;
-
     } else if ($partijmatch2 > $partijdifa) {
         $partijmatch3naam = $partijmatch2naam;
         $partijmatch3 = $partijmatch2;
@@ -56,11 +58,10 @@ while ($row = $result->fetch_array()) {
         $partijmatch3 = $partijdifa;
         $partijmatch3naam = $partijnaam;
     }
-
-
 }
+sort($ARRAY);
 
-$HTMLPARTY = "1: " . $partijmatch1naam . "<br>" . "2: " . $partijmatch2naam . "<br>" . "3: " . $partijmatch3naam . "<br>";
+$HTMLPARTY = "1: " . $partijmatch1naam . " " . round(100 - (100 / $ARRAY[sizeof($ARRAY) - 1] * $ARRAY[0])) . "%<br>" . "2: " . $partijmatch2naam . " " . round(100 - (100 / $ARRAY[sizeof($ARRAY) - 1] * $ARRAY[1])) . "%<br>" . "3: " . $partijmatch3naam . " " . round(100 - (100 / $ARRAY[sizeof($ARRAY) - 1] * $ARRAY[2])) . "%<br>";
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,31 +75,31 @@ $HTMLPARTY = "1: " . $partijmatch1naam . "<br>" . "2: " . $partijmatch2naam . "<
 </head>
 
 <body>
-<div class="header">
-    <h1>ROCMN Stemwijzer Resultaten</h1>
-</div>
-
-<div class="border-box">
-    <div class="result-section">
-        <h2>Jouw Politieke Voorkeuren</h2>
-        <ul class="result-list">
-
-            <?php
-            echo $HTMLPARTY;
-            ?>
-        </ul>
+    <div class="header">
+        <h1>ROCMN Stemwijzer Resultaten</h1>
     </div>
 
-    <div class="overwegingen-section">
-        <h2>Overwegingen</h2>
-        <p>
-            Het is belangrijk om deze resultaten te gebruiken als een startpunt voor verdere onderzoek en om meer te
-            leren over de partijen en hun programma's. Het is verstandig om de partijen en hun standpunten nader te
-            onderzoeken voordat je je uiteindelijke keuze maakt.
-        </p>
+    <div class="border-box">
+        <div class="result-section">
+            <h2>Jouw Politieke Voorkeuren</h2>
+            <ul class="result-list">
+
+                <?php
+                echo $HTMLPARTY;
+                ?>
+            </ul>
+        </div>
+
+        <div class="overwegingen-section">
+            <h2>Overwegingen</h2>
+            <p>
+                Het is belangrijk om deze resultaten te gebruiken als een startpunt voor verdere onderzoek en om meer te
+                leren over de partijen en hun programma's. Het is verstandig om de partijen en hun standpunten nader te
+                onderzoeken voordat je je uiteindelijke keuze maakt.
+            </p>
+        </div>
+        <a href="../../Pages/Home/index.php"><button class="replay">Home</button></a>
     </div>
-    <a href="../../Pages/Home/index.php"><button class="replay">Home</button></a>
-</div>
 </body>
 
 </html>
