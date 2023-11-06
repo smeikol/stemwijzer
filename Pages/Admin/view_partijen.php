@@ -4,6 +4,7 @@ session_start();
 if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) {
     header("location: index.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +21,21 @@ $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
 
 if (!$CONN) {
     die("<a class=\"text_white\">Kan nit verbinden met server. Error: " . mysqli_connect_error() . "</a>");
+}
+
+if (isset($_GET['verwijderen'])) {
+    $partij_id = $_GET['verwijderen'];
+
+    $delete_antwoord_sql = "DELETE FROM partij_antwoord WHERE partij_id=?";
+    $delete_antwoord_stmt = $CONN->prepare($delete_antwoord_sql);
+    $delete_antwoord_stmt->bind_param("s", $partij_id);
+    $delete_antwoord_stmt->execute();
+
+    $delete_partij_sql = "DELETE FROM partij WHERE partij_id=?";
+    $delete_partij_stmt = $CONN->prepare($delete_partij_sql);
+    $delete_partij_stmt->bind_param("s", $partij_id);
+    $delete_partij_stmt->execute();
+
 }
 
 if (isset($_POST['toevoegen'])) {
@@ -105,23 +121,6 @@ if (isset($_POST['bijwerken'])) {
 
     header("Refresh:0");
 }
-
-// Delete - Remove party from the database
-if (isset($_GET['verwijderen'])) {
-    $partij_id = $_GET['verwijderen'];
-
-    $delete_antwoord_sql = "DELETE FROM partij_antwoord WHERE partij_id=?";
-    $delete_antwoord_stmt = $CONN->prepare($delete_antwoord_sql);
-    $delete_antwoord_stmt->bind_param("s", $partij_id);
-    $delete_antwoord_stmt->execute();
-
-    $delete_partij_sql = "DELETE FROM partij WHERE partij_id=?";
-    $delete_partij_stmt = $CONN->prepare($delete_partij_sql);
-    $delete_partij_stmt->bind_param("s", $partij_id);
-    $delete_partij_stmt->execute();
-
-    header("Refresh:1");}
-
 ?>
 </body>
 </html>
