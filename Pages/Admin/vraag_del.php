@@ -1,5 +1,8 @@
 <?php
 include_once "../../Assets/Templates/Conn.php";
+if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
+    header("Location:index.php?error=U heeft geen toegang tot de admin pagina");
+}
 
 $sql = "SELECT * FROM vraag ";
 $result = $CONN->query($sql);

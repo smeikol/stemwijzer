@@ -19,8 +19,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         header("Location:index.php?error=Wachtwoord is verplicht");
         exit();
     } else {
-        $sql = "SELECT * FROM admin WHERE gebruikersnaam='$username'";
-        $result = mysqli_query($CONN, $sql);
+        $sql = "SELECT * FROM admin WHERE gebruikersnaam=?";
+        $STMT = $CONN->prepare($sql);
+        $STMT->bind_param("s", $username);
+        $STMT->execute();
+        $result = $STMT->get_result();
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 if (password_verify($password, $row['wachtwoord'])) {

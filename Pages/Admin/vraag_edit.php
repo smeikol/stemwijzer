@@ -1,6 +1,10 @@
 <?php
 include_once "../../Assets/Templates/Conn.php";
 
+if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
+    header("Location:index.php?error=U heeft geen toegang tot de admin pagina");
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
     $vraag_id = $_GET["id"];
     

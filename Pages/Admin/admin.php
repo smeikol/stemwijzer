@@ -1,6 +1,10 @@
 <?php
 include_once "../../Assets/Templates/Conn.php";
 
+//if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) {
+  //  header("location: index.php");
+//}
+
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -16,10 +20,10 @@ include_once "../../Assets/Templates/Conn.php";
 <body>
 <div class='header'>
 <?php
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    echo "<h1>Welkom bij de admin pagina!</h1>";
-} else {
+if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
     header("Location:index.php?error=U heeft geen toegang tot de admin pagina");
+} else {
+    echo "<h1>Welkom bij de admin pagina!</h1>";
 }
 include_once "navbar.php";
 ?>

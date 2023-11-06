@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
+    header("Location:index.php?error=U heeft geen toegang tot de admin pagina");
+}
+
 $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
 if (!$CONN) {
     die("Connectie niet gelukt ERROR: " . mysqli_connect_error());
