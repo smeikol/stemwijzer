@@ -9,15 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
     $vraag_id = $_GET["id"];
     
     // Fetch the question based on the provided ID
-    $sql = "SELECT * FROM vraag WHERE vraag_id = $vraag_id";
-    $result = $CONN->query($sql);
+    $sql = "SELECT * FROM vraag WHERE vraag_id = ?";
+    $STMT = $CONN->prepare($sql);
+    $STMT->bind_param("s", $vraag_id);
+    $STMT->execute();
+    $result = $STMT->get_result();
+    while ($row = mysqli_fetch_assoc($result)) {
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
         $question = $row["vraag"];
-    } else {
-        echo "Question not found.";
-        exit;
     }
 } elseif ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_question"])) {
     $vraag_id = $_POST["vraag_id"];
@@ -25,12 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
 
     // Update the question in the database
     $sql = "UPDATE vraag SET vraag = '$new_question' WHERE vraag_id = $vraag_id";
-    if ($CONN->query($sql) === TRUE) {
+    $STMT = $CONN->prepare($sql);
+    $STMT->bind_param("ss", $new_question, $vraag_id);
+    $STMT->execute();
+    $result = $STMT->get_result();
+    while ($row = mysqli_fetch_assoc($result)) {
+
         header("Location: vragen_crud.php"); // Redirect to the question list after the update
-        exit;
-    } else {
-        echo "Error updating question: " . $CONN->error;
-    }
+        
+    } 
 }
 ?>
 
