@@ -25,9 +25,12 @@ if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
 } else {
     echo "<h1>Welkom bij de admin pagina!</h1>";
 }
-include_once "navbar.php";
+
 ?>
 </div>
+<?php
+include_once "navbar.php";
+?>
 <div class="Content">
     <a href="view_partijen.php" class="button">
         <button>Bekijk de partijen</button>

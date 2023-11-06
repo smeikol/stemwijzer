@@ -2,20 +2,19 @@
 ?>
 <style>
     nav {
-        padding-top: 20px;
+        background-color: var(--Main-color);
     }
     li {
-        border: 1px solid black;
-        margin: 5px;
-        padding: 5px;
-        transition: 200ms;
-    }
-    li:hover {
+        border: 1px solid var(--Secundair-color);
         background-color: var(--Secundair-color);
+        border-radius: 5px;
+        margin: 5px;
+        padding: 7px;
     }
     ul {
         min-height: 25px;
         overflow: hidden;
+        padding: 10px;
     }
 </style>
 <nav>
