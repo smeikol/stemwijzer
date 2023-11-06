@@ -1,9 +1,11 @@
-<?php session_start();
+<?php
+session_start();
 
 if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) {
     header("location: index.php");
 }
 ?>
+
 <!DOCTYPE html>
 <html class="admin-fontstyle">
 
@@ -13,28 +15,32 @@ if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) 
 </head>
 
 <body class="container admin-background">
-    <?php
+<?php
+$CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
 
+if (!$CONN) {
+    die("<a class=\"text_white\">Kan nit verbinden met server. Error: " . mysqli_connect_error() . "</a>");
+}
 
-    $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
+if (isset($_POST['toevoegen'])) {
+    $naam = $_POST['naam'];
+    $sql = "INSERT INTO partij (naam) VALUES (?)";
 
-    if (!$CONN) {
-        die("<a class=\"text_white\">Kan nit verbinden met server. Error: " . mysqli_connect_error() . "</a>");
-    }
+    $STMT = $CONN->prepare($sql);
+    $STMT->bind_param("s", $naam);
+    $STMT->execute();
+    $result = $STMT->get_result();
 
-    // Create - Party adding to the database
-    if (isset($_POST['toevoegen'])) {
-        $naam = $_POST['naam'];
-        $sql = "INSERT INTO partij (naam) VALUES (?)";
+    $party_id = $CONN->insert_id;
 
-        $STMT = $CONN->prepare($sql);
-        $STMT->bind_param("s", $naam);
-        $STMT->execute();
-        $result = $STMT->get_result();
-        header("Refresh:0");
-    }
+    $insert_sql = "INSERT INTO partij_antwoord (partij_id, vraag_id, antwoord) SELECT ?, vraag_id, 0 FROM vraag";
+    $insert_stmt = $CONN->prepare($insert_sql);
+    $insert_stmt->bind_param("i", $party_id);
+    $insert_stmt->execute();
 
-    // Read - Fetch parties from the database
+    header("Refresh:0");
+}
+
     $sql = "SELECT * FROM partij";
     $result = $CONN->query($sql);
     ?>
