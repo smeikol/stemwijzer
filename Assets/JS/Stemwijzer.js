@@ -26,7 +26,6 @@ function NextButtonActivation(state) {
 	if (state == "add") {
 		nextButton.classList.add("DissabledButtons");
 	}
-	nextButton.blur();
 }
 
 nextButton.addEventListener("click", function () {
