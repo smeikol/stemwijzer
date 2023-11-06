@@ -80,7 +80,8 @@ function PrevQuestion() {
 
 function NextQuestion() {
 	if (fetching) return;
-	if (arrayIndex == valueArray.length || arrayIndex == valueArray.length - 1) {
+	arrayIndex++;
+	if (arrayIndex == valueArray.length || arrayIndex == valueArray.length + 1) {
 		FetchNextQuestion();
 		return;
 	}
@@ -105,7 +106,7 @@ function NextQuestion() {
 					if (asSelection.value == 1) {
 						yvalue += parseFloat(element.value);
 					}
-					valueArray[arrayIndex] = [xvalue, yvalue];
+					valueArray[arrayIndex - 1] = [xvalue, yvalue];
 					check = true;
 				}
 			});
@@ -119,7 +120,6 @@ function NextQuestion() {
 			fetching = false;
 			var index = 0;
 			asSelection.value = data[0][2];
-			arrayIndex++;
 			options.forEach(function (element) {
 				element.checked = false;
 				if (index === 2) {
@@ -184,7 +184,6 @@ function FetchNextQuestion() {
 			fetching = false;
 			var index = 0;
 			asSelection.value = data[0][2];
-			arrayIndex++;
 			options.forEach(function (element) {
 				element.checked = false;
 				if (index === 2) {
