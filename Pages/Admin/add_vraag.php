@@ -15,17 +15,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vraag = $_POST['vraag'];
     $as_keuze = $_POST['as_keuze'];
 
-    if ($_POST['currentas'] == 1){ 
-    $as_effect = $_POST['as_effect1'];
-    }
-    else{
-    $as_effect = $_POST['as_effect2'];
+    if ($_POST['currentas'] == 1) {
+        $as_effect = $_POST['as_effect1'];
+    } else {
+        $as_effect = $_POST['as_effect2'];
     }
     $sql = "INSERT INTO vraag (vraag, as_keuze, as_effect) VALUES (?, ?, ?)";
     $STMT = $CONN->prepare($sql);
     $STMT->bind_param("sss", $vraag, $as_keuze, $as_effect);
     $STMT->execute();
     $result = $STMT->get_result();
+    $last_id = $CONN->insert_id;
+
+    $sql = "SELECT * FROM partij";
+    $stmt = $CONN->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_array()) {
+        $partijid = $row['partij_id'];
+        $sql2 = "INSERT INTO partij_antwoord (vraag_id, partij_id, antwoord) VALUES (?, ?, 0)";
+        $STMT2 = $CONN->prepare($sql2);
+        $STMT2->bind_param("ss", $last_id, $partijid);
+        $STMT2->execute();
+    }
+
     header("Location: vragen_crud.php");
 }
 
@@ -67,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="-2">Links</option>
                 <option value="2">Rechts</option>
             </select>
-            <select name="as_effect2" class="as_effect" id="as_effect2" style="display: none;"> 
+            <select name="as_effect2" class="as_effect" id="as_effect2" style="display: none;">
                 <option value="-2">Conservatief</option>
                 <option value="2">Progressief</option>
             </select>
@@ -78,28 +92,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 
-    <script> const as_keuze = document.getElementById('as_keuze');
-    as_keuze.addEventListener('change', checkdropdown);
-    
-    function checkdropdown() {
+    <script>
+        const as_keuze = document.getElementById('as_keuze');
+        as_keuze.addEventListener('change', checkdropdown);
 
-        const as_effect1 = document.getElementById('as_effect1');
-        const as_effect2 = document.getElementById('as_effect2');
-        const hiddenboxy = document.getElementById('currentas');
-        const droppy1 = parseInt(as_keuze.value);
+        function checkdropdown() {
 
-        if (droppy1 == 0) {
-            as_effect1.style.display = 'inline-block';
-            as_effect2.style.display = 'none';
-            hiddenboxy.value = 1;
+            const as_effect1 = document.getElementById('as_effect1');
+            const as_effect2 = document.getElementById('as_effect2');
+            const hiddenboxy = document.getElementById('currentas');
+            const droppy1 = parseInt(as_keuze.value);
+
+            if (droppy1 == 0) {
+                as_effect1.style.display = 'inline-block';
+                as_effect2.style.display = 'none';
+                hiddenboxy.value = 1;
+            }
+
+            if (droppy1 == 1) {
+                as_effect1.style.display = 'none';
+                as_effect2.style.display = 'inline-block';
+                hiddenboxy.value = 2;
+            }
         }
-
-        if (droppy1 == 1) {
-            as_effect1.style.display = 'none';
-            as_effect2.style.display = 'inline-block';
-            hiddenboxy.value = 2;
-        }
-    }
     </script>
 </body>
 
