@@ -141,6 +141,49 @@ th {
     font-size: medium;
 }
 
+.admin_crud_h2 {
+    background-color: #2e3192;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align:center
+}
+
+.admin_crud_form {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.admin_crud_label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.admin_crud_form input[type="text"],
+.admin_crud_form input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.admin_crud_form input[type="submit"] {
+    background-color: #2e3192;
+    color: #fff;
+    height: 2.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: calc(100%);
+    font-size: medium;
+}
+
 @media (max-width: 485px) {
     .margin-button{
         margin-bottom: 7px;
