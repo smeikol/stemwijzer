@@ -37,7 +37,6 @@ include_once "navbar.php";
     </a>
 </div>
 
-<a href="logout.php" class="button"><button>Logout</button></a>
 </body>
 </html>
 
