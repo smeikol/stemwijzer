@@ -97,6 +97,7 @@ $HTMLPARTY = "1: " . $partijmatch1naam . "<br>" . "2: " . $partijmatch2naam . "<
             onderzoeken voordat je je uiteindelijke keuze maakt.
         </p>
     </div>
+    <a href="../../Pages/Home/index.php"><button class="replay">Home</button></a>
 </div>
 </body>
 
