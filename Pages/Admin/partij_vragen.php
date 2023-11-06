@@ -16,8 +16,11 @@ if (isset($_GET['partij_id'])) {
         $antwoorden = $_POST['antwoord'];
         if (is_array($antwoorden)) {
             foreach ($antwoorden as $vraag_id => $antwoord) {
-                $sql = "UPDATE partij_antwoord SET antwoord='$antwoord' WHERE partij_id='$partij_id' AND vraag_id='$vraag_id'";
-                $result = mysqli_query($CONN, $sql);
+                $sql = "UPDATE partij_antwoord SET antwoord=? WHERE partij_id=? AND vraag_id=?";
+                $STMT = $CONN->prepare($sql);
+                $STMT->bind_param("sss", $antwoord, $partij_id, $vraag_id);
+                $STMT->execute();
+                $result = $STMT->get_result();
 
                 if (!$result) {
                     die("Error: " . mysqli_error($CONN));
