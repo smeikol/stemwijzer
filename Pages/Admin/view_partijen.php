@@ -12,11 +12,16 @@ if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) 
 
 <head>
     <title>CRUD Partijen</title>
+    <link rel="stylesheet" href="../../Assets/CSS/navbar.css">
+    <link rel="stylesheet" href="../../Assets/CSS/Home.css">
     <link rel="stylesheet" href="../../Assets/CSS/admin.css">
 </head>
 
 <body class="container admin-background">
 <?php
+
+include_once "navbar.php";
+
 $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
 
 if (!$CONN) {
@@ -101,7 +106,8 @@ if (isset($_GET['bijwerken'])) {
     <h2>Werk de naam van de partij bij</h2>
     <form method="post">
         <input type="hidden" name="partij_id" value="<?php echo $row['partij_id']; ?>">
-        <label><a class="text-white">Nieuwe naam:</a> <input type="text" name="nieuwe_naam" value="<?php echo $row['naam']; ?>"></label>
+        <label><a class="text-white">Nieuwe naam:</a> <input type="text" name="nieuwe_naam"
+                                                             value="<?php echo $row['naam']; ?>"></label>
         <input class="action_a toevoeg_button" type="submit" name="bijwerken" value="Bijwerken">
     </form>
     <?php
