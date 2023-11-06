@@ -30,6 +30,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     $_SESSION['username'] = $row['gebruikersnaam'];
                     $_SESSION['id'] = $row['admin_id'];
                     $_SESSION['logged_in'] = true;
+                    $_SESSION['sessionid'] = session_id();
                     header("Location: admin.php");
                     exit();
                 } else {
