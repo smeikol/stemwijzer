@@ -4,6 +4,8 @@ include_once "../../Assets/Templates/Conn.php";
 if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
     header("Location:index.php?error=U heeft geen toegang tot de admin pagina");
 }
+$AS_EFFECT;
+$AS_KEUZE;
 
 if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
     $vraag_id = $_GET["id"];
@@ -15,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
     $STMT->execute();
     $result = $STMT->get_result();
     while ($row = mysqli_fetch_assoc($result)) {
-
+        $AS_EFFECT = $row["as_effect"];
+        $AS_KEUZE = $row["as_keuze"];
         $question = $row["vraag"];
     }
 } elseif ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_question"])) {
@@ -36,8 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
     $STMT->execute();
 
 
-    header("Location: vragen_crud.php"); // Redirect to the question list after the update
-
+    header("Location: vragen_crud.php");
 }
 
 ?>
@@ -69,18 +71,18 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"])) {
             <br>
             <label for="as_keuze">Standpuntensoort:</label>
             <select name="as_keuze" id="as_keuze">
-                <option value="0">Link/Rechts</option>
-                <option value="1">Progressief/Conservatief</option>
+                <option value="0" <?php if ($AS_KEUZE == 0) : ?>selected<?php endif ?>>Link/Rechts</option>
+                <option value="1" <?php if ($AS_KEUZE == 1) : ?>selected<?php endif ?>>Progressief/Conservatief</option>
             </select>
             <br>
             <label for="as_effect">Richting:</label>
-            <select name="as_effect1" class="as_effect" id="as_effect1" style="display: inline-block;">
-                <option value="-2">Links</option>
-                <option value="2">Rechts</option>
+            <select name="as_effect1" class="as_effect" id="as_effect1" style="display: <?php if ($AS_KEUZE == 0) : ?>inline-block<?php endif ?> <?php if ($AS_KEUZE == 1) : ?>none<?php endif ?> ;">
+                <option value="-2" <?php if ($AS_KEUZE == 0 && $AS_EFFECT == -2) : ?>selected<?php endif ?>>Links</option>
+                <option value="2" <?php if ($AS_KEUZE == 0 && $AS_EFFECT == 2) : ?>selected<?php endif ?>>Rechts</option>
             </select>
-            <select name="as_effect2" class="as_effect" id="as_effect2" style="display: none;">
-                <option value="-2">Conservatief</option>
-                <option value="2">Progressief</option>
+            <select name="as_effect2" class="as_effect" id="as_effect2" style="display: <?php if ($AS_KEUZE == 0) : ?>none<?php endif ?> <?php if ($AS_KEUZE == 1) : ?>inline-block<?php endif ?> ;">
+                <option value="-2" <?php if ($AS_KEUZE == 1 && $AS_EFFECT == -2) : ?>selected<?php endif ?>>Conservatief</option>
+                <option value="2" <?php if ($AS_KEUZE == 1 && $AS_EFFECT == 2) : ?>selected<?php endif ?>>Progressief</option>
             </select>
             <br>
             <input type="hidden" id="currentas" name="currentas" value="1">
