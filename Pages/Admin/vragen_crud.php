@@ -17,7 +17,7 @@ $result = $CONN->query($sql);
     <link rel="stylesheet" href="../../Assets/CSS/admin.css">
 </head>
 
-<body>
+<body class="admin-background">
     <div class="header">
         <h1>ROCMN Stemwijzer Admin</h1>
     </div>
