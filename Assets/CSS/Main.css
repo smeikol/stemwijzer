@@ -29,12 +29,13 @@ button {
 	font-size: 1.25em;
 }
 
-button:active {
+button:not(.DissabledButtons):active {
 	scale: 1.2;
 }
 
-button:hover {
+button:not(.DissabledButtons):hover {
 	background-color: var(--Secundair-color);
+	scale: 1.2;
 	cursor: pointer;
 }
 
@@ -73,7 +74,7 @@ input {
 	padding: 0.6rem;
 	background-color: var(--Main-color);
 }
-.border-box{
-    padding-left: 50px;
-    padding-right: 50px;
+.border-box {
+	padding-left: 50px;
+	padding-right: 50px;
 }
