@@ -22,6 +22,7 @@ if (isset($_GET['partij_id'])) {
             }
             echo "Gelukt.";
         }
+        header("Location:view_partijen.php");
     }
     $sql = "SELECT * FROM vraag ORDER BY vraag_id";
     $result = mysqli_query($CONN, $sql);
@@ -77,7 +78,7 @@ if (!$result) {
                 </tr>
             <?php endwhile ?>
         </table>
-        <input type='submit' value='Submit'>
+        <input type='submit' name='submit'>
     </form>
 </body>
 
