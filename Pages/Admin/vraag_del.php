@@ -10,14 +10,10 @@ $result = $CONN->query($sql);
 
 if (isset($_GET['vraag_id'])) {
     $id = $_GET['vraag_id'];
-    $sql = "DELETE FROM vraag WHERE vraag_id=?";
+    $sql = "DELETE FROM vraag WHERE vraag_id = ?";
     $STMT = $CONN->prepare($sql);
     $STMT->bind_param("s", $id);
     $STMT->execute();
-    $result = $STMT->get_result();
-    while ($row = mysqli_fetch_assoc($result)) {
-    
         header("Location: vragen_crud.php");
-    }
 }
 ?>
