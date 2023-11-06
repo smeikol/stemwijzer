@@ -1,12 +1,20 @@
+<?php session_start();
+
+if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) {
+    header("location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html class="admin-fontstyle">
+
 <head>
     <title>CRUD Partijen</title>
     <link rel="stylesheet" href="../../Assets/CSS/admin.css">
 </head>
+
 <body class="container admin-background">
     <?php
-    session_start();
+
 
     $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
 
@@ -17,13 +25,13 @@
     // Create - Party adding to the database
     if (isset($_POST['toevoegen'])) {
         $naam = $_POST['naam'];
-        $sql = "INSERT INTO partij (naam) VALUES ('$naam')";
-        if ($CONN->query($sql) === TRUE) {
-            echo "<a class=\"text_white\">Partij toegevoegd.</a>";
-            header("Refresh:0");
-        } else {
-            echo "<a class=\"text_white\">Error tijdens partij toevoegen: " . $CONN->error . "</a>";
-        }
+        $sql = "INSERT INTO partij (naam) VALUES (?)";
+
+        $STMT = $CONN->prepare($sql);
+        $STMT->bind_param("s", $naam);
+        $STMT->execute();
+        $result = $STMT->get_result();
+        header("Refresh:0");
     }
 
     // Read - Fetch parties from the database
@@ -61,8 +69,11 @@
     <?php
     if (isset($_GET['bijwerken'])) {
         $partij_id = $_GET['bijwerken'];
-        $sql = "SELECT * FROM partij WHERE partij_id='$partij_id'";
-        $result = $CONN->query($sql);
+        $sql = "SELECT * FROM partij WHERE partij_id=?";
+        $STMT = $CONN->prepare($sql);
+        $STMT->bind_param("s", $partij_id);
+        $STMT->execute();
+        $result = $STMT->get_result();
         $row = $result->fetch_assoc();
     ?>
         <h2>Werk de naam van de partij bij</h2>
@@ -79,27 +90,27 @@
         $partij_id = $_POST['partij_id'];
         $nieuwe_naam = $_POST['nieuwe_naam'];
 
-        $sql = "UPDATE partij SET naam='$nieuwe_naam' WHERE partij_id='$partij_id'";
+        $sql = "UPDATE partij SET naam=? WHERE partij_id=?";
 
-        if ($CONN->query($sql) === TRUE) {
-            echo "<a class=\"text-white\">Partij naam succesvol veranderd.</a>";
-            header("Refresh:0");
-        } else {
-            echo "<a class=\"text-white\">Error updaten partij naam: " . $CONN->error . "</a>";
-        }
+        $STMT = $CONN->prepare($sql);
+        $STMT->bind_param("ss", $nieuwe_naam, $partij_id);
+        $STMT->execute();
+        $result = $STMT->get_result();
+
+        header("Refresh:0");
     }
 
     // Delete - Remove party from the database
     if (isset($_GET['verwijderen'])) {
         $partij_id = $_GET['verwijderen'];
-        $sql = "DELETE FROM partij WHERE partij_id='$partij_id'";
-        if ($CONN->query($sql) === TRUE) {
-            echo "<a class=\"text-white\">Partij naam succesvol verwijderd.</a>";
-            header("Location: view_partijen.php");
-        } else {
-            echo "<a class=\"text-white\">Error vewijderen van partij: " . $CONN->error . "</a>";
-        }
+        $sql = "DELETE FROM partij WHERE partij_id=?";
+        $STMT = $CONN->prepare($sql);
+        $STMT->bind_param("s", $partij_id);
+        $STMT->execute();
+        $result = $STMT->get_result();
+        header("Location: view_partijen.php");
     }
     ?>
 </body>
+
 </html>

@@ -1,9 +1,9 @@
 <?php
 include_once "../../Assets/Templates/Conn.php";
 
-//if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) {
-  //  header("location: index.php");
-//}
+if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) {
+   header("location: index.php");
+}
 
 ?>
 <!DOCTYPE html>
