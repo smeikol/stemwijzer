@@ -68,13 +68,13 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             <?php if (isset($_GET['error'])) { ?>
                 <p class="error"><?php echo $_GET['error']; ?></p>
             <?php } ?>
-            <label for="username"><b>Gebruikersnaam</b></label>
+            <label for="username"><b>Gebruikersnaam</b></label> <br>
             <input type="text" placeholder="Gebruikersnaam" name="username" required>
             <br>
 
-            <label for="password"><b>Wachtwoord</b></label>
+            <label for="password"><b>Wachtwoord</b></label> <br>
             <input type="password" placeholder="Wachtwoord" name="password" required>
-
+            <br>
             <button type="submit">Inloggen</button>
         </form>
     </div>
