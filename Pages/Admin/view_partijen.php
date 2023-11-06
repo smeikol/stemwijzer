@@ -3,9 +3,6 @@
 <head>
     <title>CRUD Partijen</title>
     <link rel="stylesheet" href="../../Assets/CSS/admin.css">
-    <style>
-
-    </style>
 </head>
 <body class="container admin-background">
     <?php
@@ -14,7 +11,7 @@
     $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
 
     if (!$CONN) {
-        die("Could not connect to server. Error: " . mysqli_connect_error());
+        die("<a class=\"text_white\">Kan nit verbinden met server. Error: " . mysqli_connect_error() . "</a>");
     }
 
     // Create - Party adding to the database
@@ -22,10 +19,10 @@
         $naam = $_POST['naam'];
         $sql = "INSERT INTO partij (naam) VALUES ('$naam')";
         if ($CONN->query($sql) === TRUE) {
-            echo "Party successfully added.";
+            echo "<a class=\"text_white\">Partij toegevoegd.</a>";
             header("Refresh:0");
         } else {
-            echo "Error adding party: " . $CONN->error;
+            echo "<a class=\"text_white\">Error tijdens partij toevoegen: " . $CONN->error . "</a>";
         }
     }
 
@@ -46,16 +43,16 @@
     <?php
     if ($result->num_rows > 0) {
         echo '<table>';
-        echo '<tr><th>Name</th><th>Action</th></tr>';
+        echo '<tr><th>Naam</th><th>Actie</th></tr>';
         while ($row = $result->fetch_assoc()) {
             echo '<tr>';
             echo '<td>' . $row['naam'] . '</td>';
-            echo '<td><a class="delete-button" href="?verwijderen=' . $row['partij_id'] . '">Delete</a> | <a class="update-button" href="?bijwerken=' . $row['partij_id'] . '">Update</a> | <a class="view-button" href="partij_vragen.php?partij_id=' . $row['partij_id'] . '">View</a></td>';
+            echo '<td><a class="action_del" href="?verwijderen=' . $row['partij_id'] . '">Verwijder</a><a class="action_a" href="?bijwerken=' . $row['partij_id'] . '">Updaten</a><a class="action_a" href="partij_vragen.php?partij_id=' . $row['partij_id'] . '">Bekijken</a></td>';
             echo '</tr>';
         }
         echo '</table>';
     } else {
-        echo "No parties found.";
+        echo "<a class=\"text_white\">Geen partijen gevonden.</a>";
     }
     ?>
 
@@ -106,4 +103,3 @@
     ?>
 </body>
 </html>
-
