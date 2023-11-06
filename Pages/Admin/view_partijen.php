@@ -55,7 +55,7 @@ if (!(isset($_SESSION['sessionid']) || $_SESSION['sessionid'] == session_id())) 
         while ($row = $result->fetch_assoc()) {
             echo '<tr>';
             echo '<td>' . $row['naam'] . '</td>';
-            echo '<td><a class="action_del" href="?verwijderen=' . $row['partij_id'] . '">Verwijder</a><a class="action_a" href="?bijwerken=' . $row['partij_id'] . '">Updaten</a><a class="action_a" href="partij_vragen.php?partij_id=' . $row['partij_id'] . '">Bekijken</a></td>';
+            echo '<td><a class="action_del margin-button" href="?verwijderen=' . $row['partij_id'] . '">Verwijder</a><a class="action_a" href="?bijwerken=' . $row['partij_id'] . '">Updaten</a><a class="action_a" href="partij_vragen.php?partij_id=' . $row['partij_id'] . '">Bekijken</a></td>';
             echo '</tr>';
         }
         echo '</table>';

@@ -25,7 +25,9 @@ $result = $CONN->query($sql);
     <div class="header">
         <h1>ROCMN Stemwijzer Admin</h1>
     </div>
-
+    <?php
+    include_once "navbar.php";
+    ?>
     <div class="container">
         <h2>Overzicht</h2>
 

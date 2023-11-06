@@ -25,6 +25,10 @@ button {
     margin: 0 auto;
 }
 
+p {
+    padding: 10px;
+}
+
 .error {
     background: #ec9696;
     color: darkred;
@@ -50,6 +54,7 @@ table {
     border-collapse: collapse;
     background-color: #fff;
     border: 1px solid black;
+    border-radius: 0; !important;
 }
 
 table,
