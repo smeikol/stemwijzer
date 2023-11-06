@@ -19,8 +19,10 @@
 </style>
 <nav>
     <ul>
+        <li style="float:left;"><a href="admin.php">Admin home</a></li>
         <li style="float:left;"><a href="vragen_crud.php">Vragen</a></li>
         <li style="float:left;"><a href="view_partijen.php">Partijen</a></li>
+        <li style="float:left;"><a href="">Admin accounts</a></li>
         <li style="float:right"><a href="logout.php">Uitloggen</a></li>
     </ul>
 </nav>

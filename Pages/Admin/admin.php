@@ -32,14 +32,14 @@ if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
 include_once "navbar.php";
 ?>
 <div class="Content">
-    <a href="view_partijen.php" class="button">
-        <button>Bekijk de partijen</button>
-    </a>
-    <a href="vragen_crud.php" class="button">
-        <button>Bekijk de stellingen</button>
-    </a>
+    <p>
+        Welkom op de admin-pagina van de stemwijzer.
+        Deze krachtige tool biedt beheerders de mogelijkheid om de stemwijzer-ervaring te optimaliseren en te controleren.
+        Als beheerder heb je toegang tot een scala aan functies waarmee je de vragen, partijen en antwoorden kunt beheren.
+        Met deze administratieve hub kun je de stemwijzer op maat aanpassen, beleidskwesties bijwerken en zorgen voor een soepele werking van het systeem.
+        Laten we samenwerken om de stemwijzer-ervaring te verbeteren en een bijdrage te leveren aan een goed geïnformeerde samenleving
+    </p>
 </div>
-
 </body>
 </html>
 
