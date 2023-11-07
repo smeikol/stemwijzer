@@ -22,10 +22,6 @@ if (isset($_GET['vraag_id'])) {
                 $STMT->bind_param("sss", $antwoord, $partij_id , $vraag_id);
                 $STMT->execute();
                 $result = $STMT->get_result();
-
-                if (!$result) {
-                    die("Error: " . mysqli_error($CONN));
-                }
                 
             }
         }

@@ -22,9 +22,7 @@ if (isset($_GET['partij_id'])) {
                 $STMT->execute();
                 $result = $STMT->get_result();
 
-                if (!$result) {
-                    die("Error: " . mysqli_error($CONN));
-                }
+
             }
             echo "Gelukt.";
         }
