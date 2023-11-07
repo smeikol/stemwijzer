@@ -16,11 +16,12 @@ if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
 
 </head>
 
-<body class="admin-fontstyle">
+<body class="admin-fontstyle admin-background">
 
 <?php
 include_once "navbar.php";
 ?>
+<div class="container">
     <?php
    
    $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
@@ -145,5 +146,6 @@ if ($result) {
         }
     }
     </script>
+    </div>
 </body>
 </html
