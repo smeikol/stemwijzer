@@ -10,11 +10,17 @@ if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
 <html>
 <head>
     <title>CRUD admin</title>
+    <link rel="stylesheet" href="../../Assets/CSS/Main.css">
     <link rel="stylesheet" href="../../Assets/CSS/admin.css">
+    
 
 </head>
 
 <body class="admin-fontstyle">
+
+<?php
+include_once "navbar.php";
+?>
     <?php
    
    $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
@@ -73,13 +79,11 @@ if ($result) {
         if ($result) {
             $editData = mysqli_fetch_assoc($result);
             $gebruikersnaam = $editData['gebruikersnaam'];
-            $wachtwoord = $editData['wachtwoord'];
         }
 
         if (isset($_POST['update'])) {
             $updatedGebruikersnaam = $_POST['updated_gebruikersnaam'];
-            $updatedWachtwoord = $_POST['updated_wachtwoord'];
-
+            $updatedWachtwoord = password_hash($_POST['updated_wachtwoord'] , PASSWORD_DEFAULT);
             $updateQuery = "UPDATE `admin` SET `gebruikersnaam` = ?, `wachtwoord` = ? WHERE `admin_id` = ?";
             $STMT = $CONN->prepare($updateQuery);
             $STMT->bind_param("sss",$updatedGebruikersnaam , $updatedWachtwoord ,$adminId);
@@ -97,13 +101,9 @@ if ($result) {
         $STMT = $CONN->prepare($deleteQuery);
         $STMT->bind_param("s",$adminId);
         $STMT->execute();
-        if (mysqli_query($CONN, $deleteQuery)) {
-            echo "Admin is succesvol verwijderd.";
             // Na verwijdering, vernieuw de pagina om de wijzigingen te zien.
             echo "<script>window.location = 'admin_crud.php';</script>";
-        } else {
-            echo "Fout bij het verwijderen van de admin: " . mysqli_error($CONN);
-        }
+
     }
 
     mysqli_close($CONN);
@@ -127,7 +127,7 @@ if ($result) {
         <input type="text" name="updated_gebruikersnaam" value="<?php echo isset($gebruikersnaam) ? $gebruikersnaam : ''; ?>" required>
         <br>
         <label class="admin_crud_label" for="updated_wachtwoord">Wachtwoord:</label>
-        <input type="password" name="updated_wachtwoord" value="<?php echo isset($wachtwoord) ? $wachtwoord : ''; ?>" required>
+        <input type="password" name="updated_wachtwoord" required>
         <br>
         <input type="submit" name="update" value="Admin bijwerken">
         <button class="refresh-button" onclick="location.reload();">Refresh</button>
