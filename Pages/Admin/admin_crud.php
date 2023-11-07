@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if (!(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true)) {
+    header("Location:index.php?error=U heeft geen toegang tot de admin pagina");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +16,7 @@
 
 <body class="admin-fontstyle">
     <?php
-   session_start();
+   
    $CONN = mysqli_connect("localhost", "root", "", "stemwijzer_db");
    
    if (!$CONN) {
@@ -57,11 +65,13 @@ if ($result) {
     if (isset($_GET['edit'])) {
         $adminId = $_GET['edit'];
         // Fetch admin data based on $adminId and pre-fill the edit form.
-        $selectEditQuery = "SELECT * FROM `admin` WHERE `admin_id` = $adminId";
-        $editResult = mysqli_query($CONN, $selectEditQuery);
-
-        if ($editResult) {
-            $editData = mysqli_fetch_assoc($editResult);
+        $selectEditQuery = "SELECT * FROM `admin` WHERE `admin_id` = ?";
+        $STMT = $CONN->prepare($selectEditQuery);
+        $STMT->bind_param("s", $adminId);
+        $STMT->execute();
+        $result = $STMT->get_result();
+        if ($result) {
+            $editData = mysqli_fetch_assoc($result);
             $gebruikersnaam = $editData['gebruikersnaam'];
             $wachtwoord = $editData['wachtwoord'];
         }
@@ -70,21 +80,23 @@ if ($result) {
             $updatedGebruikersnaam = $_POST['updated_gebruikersnaam'];
             $updatedWachtwoord = $_POST['updated_wachtwoord'];
 
-            $updateQuery = "UPDATE `admin` SET `gebruikersnaam` = '$updatedGebruikersnaam', `wachtwoord` = '$updatedWachtwoord' WHERE `admin_id` = $adminId";
+            $updateQuery = "UPDATE `admin` SET `gebruikersnaam` = ?, `wachtwoord` = ? WHERE `admin_id` = ?";
+            $STMT = $CONN->prepare($updateQuery);
+            $STMT->bind_param("sss",$updatedGebruikersnaam , $updatedWachtwoord ,$adminId);
+            $STMT->execute();
+            
+            header("Refresh:0");
 
-            if (mysqli_query($CONN, $updateQuery)) {
-                echo "Admin is succesvol bijgewerkt. Druk op refresh knop onder aan om de verandering te zien.";
-            } else {
-                echo "Fout bij het bijwerken van de admin: " . mysqli_error($CONN);
-            }
         }
     }
 
     // DELETE - Admin verwijderen
     if (isset($_GET['delete'])) {
         $adminId = $_GET['delete'];
-        $deleteQuery = "DELETE FROM `admin` WHERE `admin_id` = $adminId";
-        
+        $deleteQuery = "DELETE FROM `admin` WHERE `admin_id` = ?";
+        $STMT = $CONN->prepare($deleteQuery);
+        $STMT->bind_param("s",$adminId);
+        $STMT->execute();
         if (mysqli_query($CONN, $deleteQuery)) {
             echo "Admin is succesvol verwijderd.";
             // Na verwijdering, vernieuw de pagina om de wijzigingen te zien.
