@@ -19,10 +19,9 @@ if (isset($_GET['vraag_id'])) {
             foreach ($antwoorden as $partij_id => $antwoord) {
                 $sql = "UPDATE partij_antwoord SET antwoord=? WHERE partij_id=? AND vraag_id=?";
                 $STMT = $CONN->prepare($sql);
-                $STMT->bind_param("sss", $antwoord, $partij_id , $vraag_id);
+                $STMT->bind_param("sss", $antwoord, $partij_id, $vraag_id);
                 $STMT->execute();
                 $result = $STMT->get_result();
-                
             }
         }
         header("Location:vragen_crud.php");
@@ -38,7 +37,6 @@ if (isset($_GET['vraag_id'])) {
     while ($row = $RESULT->fetch_array()) {
         $patij_antwoorden[$row["partij_id"]] = $row;
     }
-    
 }
 
 $sql3 = "SELECT * FROM vraag WHERE vraag_id = ?";
@@ -69,15 +67,16 @@ if (!$result) {
     <form method='post'>
         <table>
             <tr>
-                <th>Partij ID</th>
+                <th>Partij Nummer</th>
                 <th>Partij</th>
                 <th>Antwoord</th>
             </tr>
 
             <?php
+            $counter = 1;
             while ($row = mysqli_fetch_assoc($result)) : ?>
                 <tr>
-                    <td><?php echo $row['partij_id'] ?></td>
+                    <td><?php echo $counter ?></td>
                     <td><?php echo $row['naam'] ?></td>
                     <td>
                         <select name='antwoord[<?php echo $row['partij_id'] ?>]'>
@@ -89,7 +88,8 @@ if (!$result) {
                         </select>
                     </td>
                 </tr>
-            <?php endwhile ?>
+            <?php $counter++;
+            endwhile ?>
         </table>
         <input type='submit' value='Submit'>
     </form>

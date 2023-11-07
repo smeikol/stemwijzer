@@ -35,16 +35,17 @@ $result = $CONN->query($sql);
 
         <table>
             <tr>
-                <th>ID</th>
+                <th>Nummer</th>
                 <th>Vraag</th>
                 <th>Actie</th>
             </tr>
 
             <?php
             if ($result->num_rows > 0) {
+                $counter = 1;
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
-                    echo "<td>" . $row["vraag_id"] . "</td>";
+                    echo "<td>" . $counter . "</td>";
                     echo "<td>" . $row["vraag"] . "</td>";
                     echo "<td>
                             <a href='vraag_edit.php?id=" . $row["vraag_id"] . "' class='action_a'>Bewerken</a>
@@ -52,6 +53,7 @@ $result = $CONN->query($sql);
                             <a href='Vraagpartijantwoord.php?vraag_id=" . $row["vraag_id"] . "' class='action_a'>Beantwoorden als partij</a>
                          </td>";
                     echo "</tr>";
+                    $counter++;
                 }
             } else {
                 echo "Geen resultaten";

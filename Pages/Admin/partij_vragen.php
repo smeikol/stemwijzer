@@ -21,8 +21,6 @@ if (isset($_GET['partij_id'])) {
                 $STMT->bind_param("sss", $antwoord, $partij_id, $vraag_id);
                 $STMT->execute();
                 $result = $STMT->get_result();
-
-
             }
             echo "Gelukt.";
         }
@@ -60,15 +58,16 @@ if (!$result) {
     <form method='post'>
         <table>
             <tr>
-                <th>Vraag ID</th>
+                <th>Vraag Nummer</th>
                 <th>Vraag</th>
                 <th>Antwoord</th>
             </tr>
 
             <?php
+            $counter = 1;
             while ($row = mysqli_fetch_assoc($result)) : ?>
                 <tr>
-                    <td><?php echo $row['vraag_id'] ?></td>
+                    <td><?php echo $counter ?></td>
                     <td><?php echo $row['vraag'] ?></td>
                     <td>
                         <select name='antwoord[<?php echo $row['vraag_id'] ?>]'>
@@ -80,7 +79,8 @@ if (!$result) {
                         </select>
                     </td>
                 </tr>
-            <?php endwhile ?>
+            <?php $counter++;
+            endwhile ?>
         </table>
         <input type='submit' name='submit'>
     </form>
